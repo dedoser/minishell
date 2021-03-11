@@ -6,7 +6,7 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/03/11 23:55:58 by fignigno         ###   ########.fr        #
+#    Updated: 2021/03/12 00:10:31 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	$(MAKE) fclean -C ./libft
 
 re: fclean all
 
