@@ -6,7 +6,7 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/01 01:35:10 by ehillman          #+#    #+#              #
-#    Updated: 2020/11/04 14:20:52 by fignigno         ###   ########.fr        #
+#    Updated: 2021/03/13 20:09:03 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC =  	ft_isalnum.c\
 		ft_strjoin.c\
 		ft_strncmp.c\
 		ft_tolower.c\
-		
+		ft_strcat\
+
 BONUS =	ft_lstnew.c\
 		ft_lstadd_front.c\
 		ft_lstadd_back.c\

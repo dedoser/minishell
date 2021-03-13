@@ -3,14 +3,15 @@
 #include <stdio.h>
 int main(int argc, char **argv, char **env)
 {
-	char *ar[3];
+	char *ar[4];
 
 	ar[0] = malloc(15);
-	ar[1] = malloc(8);
-	ar[0] = "/bin/env";
+	// ar[1] = "ls";
+	ar[0] = "/bin/echo";
 	// ar[1] = "$PATH asd";
-	ar[1] = NULL;
-	execve("/bin/env", ar, env);
+	ar[1] = "";
+	ar[2] = NULL;
+	execve("bin/echo", ar, env);
 	// write(1, "a", 1);
-	write(1, ar[0], 10); 
+	// write(1, ar[0], 10); 
 }
