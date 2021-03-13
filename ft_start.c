@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/12 00:06:26 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/13 15:24:16 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int		count_coms(char *str)
 {
-	t_state	st;
 	int		i;
 	int		res;
 
-	st = NON;
 	i = 0;
 	res = 1;
 	while (str[i])
@@ -28,7 +26,7 @@ int		count_coms(char *str)
 		else if (str[i] == '\"')
 			go_further(str, '\"', &i);
 		else if (str[i] == '\\')
-			++i;
+			i += 2;
 		else if (str[i] == ';')
 		{
 			res++;
@@ -42,10 +40,9 @@ int		count_coms(char *str)
 
 void	run_com(t_com **com, char *str)
 {
-	printf("%d\n", count_coms(str));
-	if (!(com = (t_com*)malloc(sizeof(t_com *) * (count_coms(str) + 1))))
+	if (!(com = (t_com **)malloc(sizeof(t_com *) * (count_coms(str) + 1))))
 		exit_error("Malloc error");
-	parse_com(com, str);
+	// parse_com(com, str);
 }
 
 void	start(t_hist *hist)
