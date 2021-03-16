@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/13 20:48:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/13 23:40:13 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-void	parse_com(t_com **com, char *str)
+void	divide_coms(t_com **com, char *str)
 {
 	int	i;
 	int	cur;
@@ -41,29 +41,31 @@ void	parse_com(t_com **com, char *str)
 	com[cur]->line = ft_strdup(&str[prev]);
 }
 
-char	*replace_envp(char *dst, char *src, char **envp)
+char	**cut_to_args(char *str)
 {
-	char	*res;
-	int		i;
-
-	i = 0;
-	while (src[i] && src[i] != '\"')
-	{
-		if (src[i] == '\\' && src[i + 1] && src[i + 1] != '\\' && src[i + 1] != '$' && src[i + 1] != '\"')
-			i += 2;
-	}
-}
-
-void	edit_envp(char *str, t_com *com, char **envp)
-{
+	char	**res;
 	char	*tmp;
+	char	*beg;
 
-	tmp = NULL;
+	res = NULL;
+	beg = str;
 	while (*str)
 	{
-		if (*str == '\'')
-			tmp = copy_further(tmp, str, '\'');
+		if (*str == '\\')
+			++str;
+		else if (*str == '\'')
+			res = add_str(res, quote_found(&beg, &str, '\''));
 		else if (*str == '\"')
-			tmp = replace_envp(tmp, str, envp)
+			res = add_str(res, quote_found(&beg, &str, '\"'));
+		else if (*str == ' ')
+			res = add_str(res, space_found(&beg, &str));
+		else
+			++str;
 	}
+	return (res);
+}
+
+void	main_parcing(t_com *com, char **envp)
+{
+	
 }
