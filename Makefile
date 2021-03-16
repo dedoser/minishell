@@ -6,14 +6,15 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/03/13 19:22:01 by fignigno         ###   ########.fr        #
+#    Updated: 2021/03/16 23:20:49 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -g
 SRCS =	gnl/get_next_line.c gnl/get_next_line_utils.c \
-		ft_start.c ft_utils.c hist.c main.c parser.c
+		ft_start.c ft_utils.c hist.c main.c parser.c \
+		found_args_div.c divide_coms.c special_char_parser.c 
 OBJS = $(SRCS:c=o)
 LIBFT = ./libft/libft.a
 

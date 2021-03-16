@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:56:05 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/13 23:35:04 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/16 22:07:29 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,37 @@ char	*copy_further(char *dst, char *src, char c)
 	return (res);
 }
 
-char	**add_str(char **mass, char *str)
+void	add_str(t_arg **lst, char *str, int is_space)
 {
-	char	**res;
-	int		len;
+	t_arg	*tmp;
+	t_arg	*new_elem;
 
-	len = 0;
-	while (mass && mass[len])
-		++len;
-	if (!(res = (char **) malloc(sizeof(char *) * (len + 2))))
+	tmp = *lst;
+	if (!(new_elem = (t_arg *)malloc(sizeof(t_arg))))
 		exit_error("Malloc error");
-	len = -1;
-	while (mass && mass[++len])
-		res[len] = mass[len];
-	res[len] = str;
-	res[len + 1] = NULL;
-	if (mass)
-		free(mass);
-	return (res);
+	new_elem->line = str;
+	new_elem->is_space = is_space;
+	new_elem->next = NULL;
+	if (tmp == NULL)
+	{
+		*lst = new_elem;
+		return ;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_elem;
 }
 
-void	skip_spaces(char **str)
+int		is_quote_or_space(char c)
 {
-	while (**str && **str != ' ')
-		(*str)++;
+	return (c == ' ' || c == '\'' || c == '\"');
 }
+
+// void	skip_spaces(char **str)
+// {
+// 	while (**str && **str != ' ')
+// 		(*str)++;
+// }
 
 // void	go_further_sl(char *str, char c, int *i)
 // {

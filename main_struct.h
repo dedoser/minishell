@@ -6,22 +6,12 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/13 19:19:57 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/16 22:30:25 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_STRUCT_H
 #define MAIN_STRUCT_H
-
-// typedef enum	s_state
-// {
-// 	QUOT,
-// 	DQUOT,
-// 	SLASH,
-// 	SPACE,
-// 	ENV,
-// 	NON
-// } t_state;
 
 typedef struct s_com
 {
@@ -31,6 +21,13 @@ typedef struct s_com
 	int		in_fd;
 	struct s_com	*conv;
 } t_com;
+
+typedef struct s_arg
+{
+	char			*line;
+	int				is_space;
+	struct s_arg	*next;
+}					t_arg;
 
 typedef struct s_hist
 {

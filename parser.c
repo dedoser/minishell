@@ -6,66 +6,48 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/13 23:40:13 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/16 22:37:11 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-void	divide_coms(t_com **com, char *str)
+int		is_special_char(char c)
 {
-	int	i;
-	int	cur;
-	int	prev;
-
-	i = 0;
-	cur = 0;
-	prev = 0;
-	while (str[i])
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-			go_further(str, str[i], &i);
-		else if (str[i] == '\\')
-			i += 2;
-		else if (str[i] == ';')
-		{
-			str[i] = '\0';
-			com[cur]->line = ft_strdup(&str[prev]);
-			prev = i + 1;
-			cur++;
-			++i;
-		}
-		else
-			++i;
-	}
-	com[cur]->line = ft_strdup(&str[prev]);
+	if (c != '\'' && c != '\"' && c != ' ')
+		return (1);
+	return (0);
 }
 
-char	**cut_to_args(char *str)
+t_arg	*cut_to_args(char *str)
 {
-	char	**res;
+	t_arg	*res;
 	char	*tmp;
 	char	*beg;
+	int		is_space;
 
 	res = NULL;
-	beg = str;
+	is_space = 0;
 	while (*str)
 	{
-		if (*str == '\\')
-			++str;
-		else if (*str == '\'')
-			res = add_str(res, quote_found(&beg, &str, '\''));
-		else if (*str == '\"')
-			res = add_str(res, quote_found(&beg, &str, '\"'));
-		else if (*str == ' ')
-			res = add_str(res, space_found(&beg, &str));
-		else
-			++str;
+		if (*str == '\'' || *str == '\"')
+			add_str(&res, quote_found(&str, *str), is_space);
+		else if (is_special_char(*str))
+			add_str(&res, spec_found(&str), is_space);
+		is_space = *str == ' ';
+		++str;
 	}
 	return (res);
 }
 
 void	main_parcing(t_com *com, char **envp)
 {
-	
+	t_arg	*res;
+
+	res = cut_to_args(com->line);
+	while (res != NULL)
+	{
+		printf("%s %d\n", res->line, res->is_space);
+		res = res->next;
+	}
 }
