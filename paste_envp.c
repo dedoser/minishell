@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 22:02:49 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 22:16:40 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*replace_all_envp(char *str, t_envp *envp)
 	if (beg != i)
 		res = ft_strcat(res, &str[beg]);
 	free(str);
-	printf("%s\n", res);
 	return (res);
 }
 
@@ -99,11 +98,9 @@ void	paste_envp(t_arg *args, t_envp *envp)
 {
 	while (args)
 	{
-		printf("arg - %s\n", args->line);
 		if ((args->line)[0] != '\'' && does_contain_envp((args->line)))
-		{
 			args->line = replace_all_envp(args->line, envp);
-		}
+		printf("%s\n", args->line);
 		args = args->next;
 	}
 }

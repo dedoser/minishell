@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:27:21 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/16 23:21:02 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 22:35:31 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ char	*quote_found(char **str, char quote)
 		exit_error("Malloc_error");
 	res[0] = quote;
 	i = 0;
-	while ((*str)[i] && i < len)
+	while ((*str)[i] && i < len - 1)
 	{
 		res[i + 1] = (*str)[i];
 		++i;
 	}
 	res[i + 1] = '\0';
-	*str += i;
+	*str += i - 1;
 	return (res);
 }
 
