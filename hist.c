@@ -6,34 +6,42 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/11 22:22:19 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 20:55:52 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-static int	envp_count(char **envp)
+void	ret_envp(t_envp **envp, char *str)
 {
-	int		i;
+	char	**mass;
+	t_envp	*res;
+	t_envp	*tmp;
 
-	i = 0;
-	while (envp[i])
-		++i;
-	return (i);
+	mass = ft_split(str, '=');
+	if (!(res = (t_envp *)malloc(sizeof(t_envp))))
+		exit_error("Malloc error");
+	res->key = mass[0];
+	res->value = mass[1];
+	res->next = NULL;
+	free(mass);
+	if (*envp == NULL)
+		*envp = res;
+	else
+	{
+		tmp = *envp;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = res;
+	}
 }
 
 void	copy_envp(t_hist *hist, char **envp)
 {
-	int		count;
-	int		i;
+	int	i;
 
-	count = envp_count(envp);
-	if (!(hist->envp = (char **)malloc(sizeof(char *) * (count + 1))))
-		exit_error("Malloc error");
-	i = 0;
-	while (envp[i])
-	{
-		hist->envp[i] = ft_strdup(envp[i]);
-		++i;
-	}
+	hist->envp = NULL;
+	i = -1;
+	while (envp[++i])
+		ret_envp(&hist->envp, envp[i]);
 }

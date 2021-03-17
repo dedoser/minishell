@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/16 21:21:12 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 20:57:28 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	divide_coms(t_com **com, char *str)
 	com[cur]->line = ft_strdup(&str[prev]);
 }
 
-void	parse_com(t_com **com, char *str, char **envp)
+void	parse_com(t_com **com, char *str, t_envp *envp)
 {
 	int	count;
 	int	i;

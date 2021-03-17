@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/16 22:37:11 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 20:57:50 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,10 @@ t_arg	*cut_to_args(char *str)
 	return (res);
 }
 
-void	main_parcing(t_com *com, char **envp)
+void	main_parcing(t_com *com, t_envp *envp)
 {
 	t_arg	*res;
 
 	res = cut_to_args(com->line);
-	while (res != NULL)
-	{
-		printf("%s %d\n", res->line, res->is_space);
-		res = res->next;
-	}
+	paste_envp(res, envp);
 }

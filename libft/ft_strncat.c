@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/13 20:01:22 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 21:59:56 by fignigno         ###   ########.fr       */
+/*   Created: 2021/03/17 17:49:29 by fignigno          #+#    #+#             */
+/*   Updated: 2021/03/17 21:36:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-char	*ft_strcat(char *src, char *dst)
+char	*ft_strncat(char *dst, const char *src, size_t n)
 {
+	size_t	tmp;
 	int		i;
-	int		j;
 	char	*res;
+	int		dst_len;
 
-	if (!(res = (char *)malloc(sizeof(char) *
-		(ft_strlen(src) + ft_strlen(dst) + 1))))
+	tmp = ft_strlen(src);
+	dst_len = ft_strlen(dst);
+	tmp = tmp > n ? n : tmp;
+	if (!(res = (char *)malloc(sizeof(char) * (tmp + 1 + dst_len))))
 		return (NULL);
-	i = 0;
-	j = -1;
-	while (src && src[i])
-	{
-		res[i] = src[i];
-		++i;
-	}
-	while (dst[++j])
-		res[i + j] = dst[j];
-	res[i + j] = '\0';
-	if (src)
-		free(src);
+	i = -1;
+	if (dst)
+		while (dst[++i])
+			res[i] = dst[i];
+	i = -1;
+	while (++i < (int)tmp)
+		res[i + dst_len] = src[i];
 	if (dst)
 		free(dst);
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 22:24:17 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/16 23:21:58 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:34:41 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ int		redirect_line(char *str)
 	i = 0;
 	while (str[i] && (str[i] == '>' || str[i] == '<'))
 		++i;
-	while (str[i] && str[i] == ' ')
-		++i;
-	c = str[i];
-	while (str[i] && !end_spec(str[i], c))
-	{
-		c = str[i];
-		++i;
-	}
 	return (i);
 }
 
