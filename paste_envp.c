@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 22:16:40 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 21:57:46 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		end_of_envp(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '\\' || str[i] == ' ' || str[i] == '$')
+		if (str[i] == '\\' || str[i] == ' ' || str[i] == '$' ||
+			str[i] == '\"')
 			return (i);
 	}
 	return (i);
@@ -47,7 +48,7 @@ char	*find_envp(char *str, t_envp *envp, int *k, int *beg)
 	}
 	*k += end + 1;
 	*beg = *k;
-	return (ft_strdup(envp == NULL ? "" : envp->value));
+	return (envp == NULL ? "" : envp->value);
 }
 
 int		does_contain_envp(char *str)
@@ -100,7 +101,7 @@ void	paste_envp(t_arg *args, t_envp *envp)
 	{
 		if ((args->line)[0] != '\'' && does_contain_envp((args->line)))
 			args->line = replace_all_envp(args->line, envp);
-		printf("%s\n", args->line);
+		// printf("%s %d\n", args->line, len_without_slash(args->line, (args->line)[0] == '\"'));
 		args = args->next;
 	}
 }

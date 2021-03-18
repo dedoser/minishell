@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 20:01:22 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 21:59:56 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:42:45 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ char	*ft_strcat(char *src, char *dst)
 	res[i + j] = '\0';
 	if (src)
 		free(src);
-	if (dst)
-		free(dst);
 	return (res);
 }

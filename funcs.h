@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 21:24:35 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 23:48:35 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int		end_spec(char cur, char prev);
 char	*redirect_found(char **str);
 char	*pipe_found(char **str);
 void	paste_envp(t_arg *args, t_envp *envp);
+void	delete_protecting(t_arg *arg);
+char	**create_final_mass(t_arg *arg);
 
 #endif

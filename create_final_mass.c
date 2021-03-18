@@ -1,0 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_final_mass.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 23:02:52 by fignigno          #+#    #+#             */
+/*   Updated: 2021/03/18 23:57:59 by fignigno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "funcs.h"
+
+char	*delete_quotes(char *str)
+{
+	char	*res;
+	int		i;
+	int		len;
+
+	len = ft_strlen(str) - 2;
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
+		exit_error("Malloc error");
+	i = 1;
+	while (str[i + 1])
+	{
+		res[i - 1] = str[i];
+		++i;
+	}
+	res[i - 1] = '\0';
+	free(str);
+	return (res);
+}
+
+char	**push_bask(char **mass, char *str)
+{
+	char	**res;
+	int		i;
+
+	i = 0;
+	if (mass)
+		while (mass[i])
+			i++;
+	printf("%d\n", i);
+	if (!(res = (char **)malloc(sizeof(char) * (i + 2))))
+		exit_error("Malloc error");
+	i = -1;
+	if (mass)
+		while (mass[++i])
+		{
+			res[i] = mass[i];
+			write(1, "a", 1);
+		}
+	else
+		++i;
+	res[i] = str;
+	res[i + 1] = NULL;
+	if (mass)
+		free(mass);
+	return (res);
+}
+
+void	free_arg(t_arg *arg)
+{
+	t_arg	*prev;
+
+	while (arg)
+	{
+		prev = arg;
+		free(arg->line);
+		arg = arg->next;
+		free(prev);
+	}
+}
+
+char	**create_final_mass(t_arg *arg)
+{
+	char	**res;
+	char	*str;
+
+	str = NULL;
+	res = NULL;
+	while (arg)
+	{
+		if (arg->has_quote)
+			arg->line = delete_quotes(arg->line);
+		str = ft_strcat(str, arg->line);
+		arg = arg->next;
+		if (!arg || arg->is_space)
+		{
+			res = push_bask(res, str);
+			str = NULL;
+		}
+	}
+	res = push_bask(res, NULL);
+	free_arg(arg);
+	return (res);
+}

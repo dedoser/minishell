@@ -6,53 +6,86 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 22:09:46 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 22:46:07 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 23:49:58 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-int		len_without_slash(char *str, int isquote)
+int		len_without_protect(char *str, int isquote)
 {
 	int		i;
 	int		len;
-	char	prev;
 
-	i = -1;
+	i = 0;
 	len = 0;
-	prev = str[0];
-	while (str[++i])
+	while (str[i])
 	{
-		if ((str[i] == '\\' || str[i] == '\"' || str[i] == '\'' ||
-			str[i] == '$' || (!isquote)) && prev == '\\')
-			continue ;
+		if (str[i] == '\\')
+		{
+			if (!((isquote && (str[i + 1] == '\\' || str[i + 1] == '\"' ||
+				str[i + 1] == '$')) || !isquote))
+				len++;
+			i++;
+		}
+		i++;
 		len++;
-		prev = str[i];
 	}
-	return (len - (isquote == 1));
+	return (len);
 }
 
 char	*protect_dquote(char *str)
 {
 	char	*res;
-	int		len;
 	int		i;
-	char	prev;
+	int		len;
 
-	++str;
-	len = len_without_slash(str, 1);
+	len = len_without_protect(str, 1);
 	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
 		exit_error("Malloc error");
 	i = 0;
-	prev = str[0];
-	while (i < len)
+	len = 0;
+	while (str[i])
 	{
-		if (prev == '\\')
-		res[i] = str[i];
+		if (str[i] == '\\')
+		{
+			if (!(str[i + 1] == '\\' || str[i + 1] == '\"' ||
+				str[i + 1] == '$'))
+			{
+				res[len++] = str[i];
+			}
+			i++;
+		}
+		res[len++] = str[i++];
 	}
+	res[len] = '\0';
+	free(str);
+	return (res);
 }
 
-void	delete_protectong(t_arg *arg)
+char	*protect_simple(char *str)
+{
+	char	*res;
+	int		i;
+	int		len;
+
+	len = len_without_protect(str, 0);
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
+		exit_error("Malloc error");
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\')
+			i++;
+		res[len++] = str[i++];
+	}
+	res[len] = '\0';
+	free(str);
+	return (res);
+}
+
+void	delete_protecting(t_arg *arg)
 {
 	while (arg)
 	{

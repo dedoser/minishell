@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 20:50:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 23:03:35 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_arg
 {
 	char			*line;
 	int				is_space;
+	int				has_quote;
 	struct s_arg	*next;
 }					t_arg;
 

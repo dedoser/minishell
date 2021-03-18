@@ -6,7 +6,7 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/03/17 21:24:51 by fignigno         ###   ########.fr        #
+#    Updated: 2021/03/18 23:49:27 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS = -g
 SRCS =	gnl/get_next_line.c gnl/get_next_line_utils.c \
 		ft_start.c ft_utils.c hist.c main.c parser.c \
 		found_args_div.c divide_coms.c special_char_parser.c \
-		paste_envp.c
+		paste_envp.c delete_protecting.c create_final_mass.c
 OBJS = $(SRCS:c=o)
 LIBFT = ./libft/libft.a
 

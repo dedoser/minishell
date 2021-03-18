@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:56:05 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 18:01:44 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 23:16:02 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ void	go_further(char *str, char c, int *i)
 	}
 }
 
-// char	*copy_further(char *dst, char *src, char c)
-// {
-// 	char	*res;
-// 	int		i;
-
-// 	i = 0;
-// 	++src;
-// 	while (src[i] && src[i] != c)
-// 		++i;
-// 	src[i] = '\0';
-// 	if (!(res = ft_strcat(dst, src)))
-// 		exit_error("Malloc error");
-// 	return (res);
-// }
-
 void	add_str(t_arg **lst, char *str, int is_space)
 {
 	t_arg	*tmp;
@@ -48,6 +33,7 @@ void	add_str(t_arg **lst, char *str, int is_space)
 	if (!(new_elem = (t_arg *)malloc(sizeof(t_arg))))
 		exit_error("Malloc error");
 	new_elem->line = str;
+	new_elem->has_quote = (str[0] == '\'' || str[0] == '\"');
 	new_elem->is_space = is_space;
 	new_elem->next = NULL;
 	if (tmp == NULL)
@@ -64,24 +50,6 @@ int		is_quote_or_space(char c)
 {
 	return (c == ' ' || c == '\'' || c == '\"');
 }
-
-// void	skip_spaces(char **str)
-// {
-// 	while (**str && **str != ' ')
-// 		(*str)++;
-// }
-
-// void	go_further_sl(char *str, char c, int *i)
-// {
-// 	while (str[*i])
-// 	{
-// 		if (str[*i] == c)
-// 			return;
-// 		if (str[*i] == '\\')
-// 			(*i)++;
-// 		(*i)++;
-// 	}
-// }
 
 void	exit_error(const char *str)
 {

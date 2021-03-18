@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 22:15:24 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 23:49:12 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ void	main_parcing(t_com *com, t_envp *envp)
 
 	res = cut_to_args(com->line);
 	paste_envp(res, envp);
-	// delete_protecting(res);
+	delete_protecting(res);
+	com->args = create_final_mass(res);
+	for (int i = 0; com->args[i]; ++i)
+		printf("%s\n", com->args[i]);
 }

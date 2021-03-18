@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:27:21 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 22:35:31 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/18 22:08:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ int		end_quote(char quote, char prev, char cur)
 int		quote_len(char *str, char quote)
 {
 	int		i;
-	char	c;
 
 	i = 0;
-	c = str[i];
 	while (str[i])
 	{
-		if (str[i] == quote && end_quote(quote, c, str[i]))
+		if (str[i] == '\\')
+			i += 2;
+		if (str[i] == quote)
 			return (i + 2);
-		c = str[i];
 		++i;
 	}
 	return (i);
