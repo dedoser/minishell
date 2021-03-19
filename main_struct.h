@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/18 23:03:35 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/19 22:21:34 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_com
 	int		out_fd;
 	int		in_fd;
 	struct s_com	*conv;
-} t_com;
+}			t_com;
 
 typedef struct s_envp
 {
@@ -41,6 +41,7 @@ typedef struct s_hist
 {
 	char	**str;
 	int		cur;
+	int		last;
 	t_envp	*envp;
 }			t_hist;
 

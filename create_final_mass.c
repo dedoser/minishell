@@ -6,11 +6,33 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 23:02:52 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/18 23:57:59 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:18:12 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
+
+void	change_spaces(t_arg *arg)
+{
+	char	c;
+	int		prev_arg;
+
+	prev_arg = 0;
+	while (arg)
+	{
+		c = arg->line[0];
+		if (prev_arg)
+			arg->is_space = 1;
+		if ((c == '|' || c == '>' || c == '<') && !arg->is_space)
+		{
+			arg->is_space = 1;
+			prev_arg = 1;
+		}
+		else
+			prev_arg = 0;
+		arg = arg->next;
+	}
+}
 
 char	*delete_quotes(char *str)
 {
@@ -41,16 +63,16 @@ char	**push_bask(char **mass, char *str)
 	if (mass)
 		while (mass[i])
 			i++;
-	printf("%d\n", i);
-	if (!(res = (char **)malloc(sizeof(char) * (i + 2))))
+	if (!(res = (char **)malloc(sizeof(char *) * (i + 2))))
 		exit_error("Malloc error");
 	i = -1;
 	if (mass)
+	{
 		while (mass[++i])
 		{
 			res[i] = mass[i];
-			write(1, "a", 1);
 		}
+	}
 	else
 		++i;
 	res[i] = str;
@@ -92,7 +114,6 @@ char	**create_final_mass(t_arg *arg)
 			str = NULL;
 		}
 	}
-	res = push_bask(res, NULL);
 	free_arg(arg);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:27:21 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/18 22:08:14 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:20:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		len_spec(char *str)
 	return (i);
 }
 
-char	*spec_found(char **str)
+char	*spec_found(char **str, char *prev)
 {
 	int		i;
 	char	*res;
@@ -120,6 +120,7 @@ char	*spec_found(char **str)
 		++i;
 	}
 	res[i] = '\0';
+	*prev = *(*str + i - 2);
 	*str += i - 1;
 	return (res);
 }
