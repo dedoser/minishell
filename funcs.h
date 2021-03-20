@@ -6,20 +6,20 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/19 22:06:26 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/20 21:30:39 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FUNCS_H
-#define FUNCS_H
+# define FUNCS_H
 
-#include "main_struct.h"
-#include "gnl/get_next_line.h"
-#include "libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <term.h>
+# include "main_struct.h"
+# include "gnl/get_next_line.h"
+# include "libft/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <term.h>
 
 void	exit_error(const char *str);
 void	go_further(char *str, char c, int *i);
@@ -41,5 +41,6 @@ void	paste_envp(t_arg *args, t_envp *envp);
 void	delete_protecting(t_arg *arg);
 char	**create_final_mass(t_arg *arg);
 void	change_spaces(t_arg *arg);
-
+void	init_save_term(struct termios *term);
+char	*read_line(t_hist *hist);
 #endif

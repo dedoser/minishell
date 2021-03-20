@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/19 22:21:34 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/20 16:22:50 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,16 @@ typedef struct s_arg
 	struct s_arg	*next;
 }					t_arg;
 
+typedef struct	s_str
+{
+	char			*str;
+	struct s_str	*next;
+}				t_str;
+
+
 typedef struct s_hist
 {
-	char	**str;
+	t_str	*list;
 	int		cur;
 	int		last;
 	t_envp	*envp;
