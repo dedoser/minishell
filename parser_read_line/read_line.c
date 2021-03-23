@@ -6,11 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 22:15:40 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:06:23 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "funcs.h"
+#include "../funcs.h"
 
 int	ft_putchar(int c)
 {
@@ -195,7 +195,8 @@ char	*read_line(t_hist *hist)
 	buf[0] = '\0';
 	str = ft_strdup("");
 	tputs(save_cursor, 1, ft_putchar);
-	while (ft_strncmp(buf, "\n", 1) && ft_strncmp(buf, "\4", 1))
+	while (ft_strncmp(buf, "\n", 1) && (ft_strncmp(buf, "\4", 1)
+			|| ft_strlen(str)))
 	{
 		l = read(0, buf, 100);
 		buf[l] = '\0';

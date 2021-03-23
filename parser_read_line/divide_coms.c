@@ -6,11 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 17:40:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:06:20 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "funcs.h"
+#include "../funcs.h"
 
 void	init_com(t_com **com, int count)
 {
@@ -75,6 +75,7 @@ void	divide_coms(t_com **com, char *str)
 			++i;
 	}
 	com[cur]->line = ft_strdup(&str[prev]);
+	free(str);
 }
 
 void	parse_com(t_com **com, char *str, t_envp *envp)
@@ -86,7 +87,7 @@ void	parse_com(t_com **com, char *str, t_envp *envp)
 	if (!(com = (t_com **)malloc(sizeof(t_com *) * (count_coms(str) + 1))))
 		exit_error("Malloc error");
 	init_com(com, count);
-	divide_coms(com, str);
+	divide_coms(com, ft_strdup(str));
 	i = 0;
 	while (com[i])
 	{

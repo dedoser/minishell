@@ -6,11 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 23:02:52 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/19 19:18:12 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:06:18 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "funcs.h"
+#include "../funcs.h"
 
 void	change_spaces(t_arg *arg)
 {

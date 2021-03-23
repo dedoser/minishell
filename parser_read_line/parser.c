@@ -6,11 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 21:06:41 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/23 20:20:17 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "funcs.h"
+#include "../funcs.h"
 
 int		is_special_char(char c)
 {
@@ -22,8 +22,6 @@ int		is_special_char(char c)
 t_arg	*cut_to_args(char *str)
 {
 	t_arg	*res;
-	char	*tmp;
-	char	*beg;
 	int		is_space;
 	char	prev;
 

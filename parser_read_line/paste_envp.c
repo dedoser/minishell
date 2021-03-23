@@ -6,11 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/18 21:57:46 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:06:22 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "funcs.h"
+#include "../funcs.h"
 
 int		end_of_envp(char *str)
 {
