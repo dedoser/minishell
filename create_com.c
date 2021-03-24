@@ -6,71 +6,107 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:02:35 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 20:26:57 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:32:56 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-char	**submass(char **mass, int beg, int end)
+void	back_list(t_arg **list, t_arg *elem)
 {
-	char	**res;
-	int		i;
+	t_arg	*tmp;
 
-	if (!(res = (char **)malloc(sizeof(char *) * (end - beg + 1))))
-		exit_error("Malloc error");
-	i = 0;
-	while (beg < end && mass[beg])
+	if (*list == NULL)
+		*list = elem;
+	else
 	{
-		res[i] = ft_strdup(mass[beg]);
-		++i;
-		++beg;
+		tmp = *list;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = elem;
 	}
-	res[i] = NULL;
-	return (res);
+}
+
+void	cut_files_from_list(t_arg **files, t_arg **cur, t_arg **prev)
+{
+	t_arg	*tmp;
+
+	tmp = *cur;
+	(*prev)->next = tmp->next->next;
+	tmp->next->next = NULL;
+	back_list(files, tmp);
+	*cur = (*prev)->next;
+	*prev = *cur;
+}
+
+void	next_pipe(t_com *com, t_arg **cur, t_arg **prev)
+{
+	(*prev)->next = NULL;
+	if (!(com->next = (t_com *)malloc(sizeof(t_com))))
+		exit_error("Malloc error");
+	com->list = (*cur)->next;
+	free((*cur)->line);
+	free(*cur);
+	*cur = com->list;
+	*prev = *cur;
 }
 
 void	make_pipe(t_com *com)
 {
-	int		i;
-	char	**mass;
-	int		beg;
+	t_arg	*cur;
+	t_arg	*prev;
 
-	i = 0;
-	mass = com->args;
-	beg = 0;
-	while (mass[i])
+	cur = com->list;
+	prev = com->list;
+	while (cur)
 	{
-		if (mass[i][0] == '|')
+		if (cur->line[0] == '|')
 		{
-			com->args = submass(mass, beg, i);
-			beg = i + 1;
-			if (!(com->next = (t_com *)malloc(sizeof(t_com))))
-				exit_error("Malloc error");
+			next_pipe(com, &cur, &prev);
 			com = com->next;
 		}
-		++i;
+		else
+		{
+			prev = cur;
+			cur = cur->next;
+		}
 	}
-	com->args = submass(mass, beg, i);
 	com->next = NULL;
 }
 
 void	make_redirect(t_com *com)
 {
-	int		i;
+	t_arg	*cur;
+	t_arg	*prev;
 
-	i = 0;
 	while (com)
 	{
-		while (com->args[i])
+		cur = com->list;
+		prev = cur;
+		while (cur)
 		{
-			
+			if (cur->line[0] == '>')
+				cut_files_from_list(&(com->out_files), &cur, &prev);
+			else if (cur->line[0] == '<')
+				cut_files_from_list(&(com->in_fd), &cur, &prev);
+			else
+			{
+				prev = cur;
+				cur = cur->next;
+			}
 		}
+		com = com->next;
 	}
 }
 
-void	create_com(t_com *com)
+int		create_com(t_com *com)
 {
+	if (!check_pipes(com->list))
+	
 	make_pipe(com);
+	if (!check_files(com))
+	{
+		
+	}
 	make_redirect(com);
 }

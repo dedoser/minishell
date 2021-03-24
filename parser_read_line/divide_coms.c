@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 19:06:20 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:10:34 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	init_com(t_com **com, int count)
 	{
 		if (!(com[i] = (t_com *)malloc(sizeof(t_com))))
 			exit_error("Malloc error");
+		com[i]->in_fd = 0;
+		com[i]->out_fd = 1;
+		com[i]->in_files = NULL;
+		com[i]->out_files = NULL;
 		++i;
 	}
 	com[i] = NULL;

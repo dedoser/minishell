@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 21:30:39 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:32:28 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ char	**create_final_mass(t_arg *arg);
 void	change_spaces(t_arg *arg);
 void	init_save_term(struct termios *term);
 char	*read_line(t_hist *hist);
+int		check_files(t_com *com);
+int		check_pipes(t_arg *list);
 #endif
