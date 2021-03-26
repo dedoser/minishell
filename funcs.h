@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/24 20:32:28 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/26 19:02:59 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <term.h>
+# include <fcntl.h>
 
 void	exit_error(const char *str);
 void	go_further(char *str, char c, int *i);
@@ -45,4 +46,5 @@ void	init_save_term(struct termios *term);
 char	*read_line(t_hist *hist);
 int		check_files(t_com *com);
 int		check_pipes(t_arg *list);
+int		create_com(t_com *com);
 #endif

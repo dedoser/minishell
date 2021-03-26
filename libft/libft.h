@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 20:10:30 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/17 21:43:20 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:31:02 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(char *heap, const char *need, size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_atoi(const char *nptr);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);

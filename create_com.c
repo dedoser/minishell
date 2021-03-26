@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:02:35 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/24 20:32:56 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:21:47 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ void	cut_files_from_list(t_arg **files, t_arg **cur, t_arg **prev)
 	*prev = *cur;
 }
 
-void	next_pipe(t_com *com, t_arg **cur, t_arg **prev)
+void	next_pipe(t_com **com, t_arg **cur, t_arg **prev)
 {
 	(*prev)->next = NULL;
-	if (!(com->next = (t_com *)malloc(sizeof(t_com))))
+	if (!((*com)->next = (t_com *)malloc(sizeof(t_com))))
 		exit_error("Malloc error");
-	com->list = (*cur)->next;
+	(*com) = (*com)->next;
+	(*com)->list = (*cur)->next;
 	free((*cur)->line);
 	free(*cur);
-	*cur = com->list;
+	*cur = (*com)->list;
 	*prev = *cur;
 }
 
@@ -61,10 +62,7 @@ void	make_pipe(t_com *com)
 	while (cur)
 	{
 		if (cur->line[0] == '|')
-		{
-			next_pipe(com, &cur, &prev);
-			com = com->next;
-		}
+			next_pipe(&com, &cur, &prev);
 		else
 		{
 			prev = cur;
@@ -88,7 +86,7 @@ void	make_redirect(t_com *com)
 			if (cur->line[0] == '>')
 				cut_files_from_list(&(com->out_files), &cur, &prev);
 			else if (cur->line[0] == '<')
-				cut_files_from_list(&(com->in_fd), &cur, &prev);
+				cut_files_from_list(&(com->in_files), &cur, &prev);
 			else
 			{
 				prev = cur;
@@ -102,11 +100,16 @@ void	make_redirect(t_com *com)
 int		create_com(t_com *com)
 {
 	if (!check_pipes(com->list))
-	
+	{
+		printf("Pipe error\n");
+		return (0);
+	}
 	make_pipe(com);
 	if (!check_files(com))
 	{
-		
+		printf("Redirect error\n");
+		return (0);
 	}
 	make_redirect(com);
+	return (1);
 }

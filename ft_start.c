@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 20:19:23 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:34:18 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	start(t_hist *hist)
 	{
 		copy_hist = history_copy(hist);
 		str = read_line(copy_hist);
-		if (!ft_strlen(str))
+		if (!ft_strncmp(str, "\4", 1))
 			break ;
 		if (ft_strlen(str))
 		{

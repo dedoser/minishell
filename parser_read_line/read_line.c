@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 19:06:23 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/26 18:47:53 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,17 +195,18 @@ char	*read_line(t_hist *hist)
 	buf[0] = '\0';
 	str = ft_strdup("");
 	tputs(save_cursor, 1, ft_putchar);
-	while (ft_strncmp(buf, "\n", 1) && (ft_strncmp(buf, "\4", 1)
-			|| ft_strlen(str)))
+	while (ft_strncmp(buf, "\n", 1))
 	{
 		l = read(0, buf, 100);
 		buf[l] = '\0';
 		if (!press_key(buf, str, hist))
 		{
 			write(1, buf, l);
-			if (buf[l - 1] != '\n' && buf[l - 1] != '\4')
+			if (buf[l - 1] != '\n' && (buf[l - 1] != '\4' || !ft_strlen(str)))
 				str = ft_strcat(str, buf);
 		}
+		if (!ft_strcmp(buf, "\4") && ft_strlen(str) == 1)
+			break ;
 	}
 	return (ret_str(str, hist));
 }
