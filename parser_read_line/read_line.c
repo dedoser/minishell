@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/26 18:47:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 19:43:36 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	add_hist(t_hist *hist)
 	hist->last++;
 }
 
-void	print_prev(t_hist *hist, char *str)
+void	print_prev(t_hist *hist)
 {
 	t_str	*list;
 	int		i;
@@ -173,7 +173,7 @@ char	*ret_str(char *str, t_hist *hist)
 int		press_key(char *buf, char *str, t_hist *hist)
 {
 	if (!ft_strncmp(buf, "\e[A", ft_strlen("\e[A")))
-		print_prev(hist, str);
+		print_prev(hist);
 	else if (!ft_strncmp(buf, "\e[B", ft_strlen("\e[B")))
 		print_next(hist, str);
 	else if (!ft_strncmp(buf, "\177", 1))
@@ -186,7 +186,6 @@ int		press_key(char *buf, char *str, t_hist *hist)
 char	*read_line(t_hist *hist)
 {
 	struct termios	term;
-	char			**mass;
 	char			buf[200];
 	int				l;
 	char			*str;

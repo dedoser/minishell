@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:06 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 17:27:24 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:06:20 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		main(int argc, char **argv, char **envp)
 	t_hist			hist;
 	struct termios	term;
 
+	if (argc > 1 && !argv[0])
+		return (0);
 	copy_envp(&hist, envp);
 	init_hist(&hist);
 	init_save_term(&term);

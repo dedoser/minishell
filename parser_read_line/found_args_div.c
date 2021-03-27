@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:27:21 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 19:06:20 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:07:49 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*spec_found(char **str, char *prev)
 	if (**str == '>' || **str == '<')
 		return (redirect_found(str));
 	if (**str == '|')
-		return (pipe_found(str));
+		return (pipe_found());
 	if (!(res = (char *)malloc(sizeof(char) * (len_spec(*str) + 1))))
 		exit_error("Malloc error");
 	c = (*str)[i];

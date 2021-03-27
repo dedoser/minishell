@@ -6,17 +6,17 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/03/26 16:36:29 by fignigno         ###   ########.fr        #
+#    Updated: 2021/03/27 17:04:23 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-FLAGS = -g
+FLAGS = -g -Wall -Werror -Wextra
 SRCS =	gnl/get_next_line.c gnl/get_next_line_utils.c parser_read_line/read_line.c\
 		main.c ft_start.c parser_read_line/ft_utils.c parser_read_line/hist.c parser_read_line/parser.c \
 		parser_read_line/found_args_div.c parser_read_line/divide_coms.c parser_read_line/special_char_parser.c \
 		parser_read_line/paste_envp.c parser_read_line/delete_protecting.c parser_read_line/create_final_mass.c \
-		parser_read_line/check_args.c create_com.c
+		parser_read_line/check_args.c create_com.c run_com.c launch_com.c find_com.c
 OBJS = $(SRCS:c=o)
 LIBFT = ./libft/libft.a
 

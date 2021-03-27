@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:02:35 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/26 17:21:47 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 19:11:42 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	next_pipe(t_com **com, t_arg **cur, t_arg **prev)
 	if (!((*com)->next = (t_com *)malloc(sizeof(t_com))))
 		exit_error("Malloc error");
 	(*com) = (*com)->next;
+	(*com)->in_fd = 0;
+	(*com)->out_fd = 1;
 	(*com)->list = (*cur)->next;
 	free((*cur)->line);
 	free(*cur);
@@ -99,6 +101,8 @@ void	make_redirect(t_com *com)
 
 int		create_com(t_com *com)
 {
+	if (!com->list)
+		return (0);
 	if (!check_pipes(com->list))
 	{
 		printf("Pipe error\n");

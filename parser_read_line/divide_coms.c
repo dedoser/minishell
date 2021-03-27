@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/26 18:54:01 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:16:53 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ void	divide_coms(t_com **com, char *str)
 	free(str);
 }
 
-void	parse_com(t_com **com, char *str, t_envp *envp)
+t_com	**parse_com(char *str, t_envp *envp)
 {
-	int	count;
-	int	i;
+	int		count;
+	int		i;
+	t_com	**com;
 
 	count = count_coms(str);
 	if (!(com = (t_com **)malloc(sizeof(t_com *) * (count_coms(str) + 1))))
@@ -98,4 +99,5 @@ void	parse_com(t_com **com, char *str, t_envp *envp)
 		main_parcing(com[i], envp);
 		++i;
 	}
+	return (com);
 }

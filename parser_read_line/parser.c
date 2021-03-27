@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/26 17:29:12 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/03/27 19:20:44 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	main_parcing(t_com *com, t_envp *envp)
 		// 	com->out_files = com->out_files->next;
 		// }
 		com->args = create_final_mass(res);
-		for (int i = 0; com->args[i]; ++i)
-			printf("%s\n", com->args[i]);
+		// for (int i = 0; com->args[i]; ++i)
+		// 	printf("%s\n", com->args[i]);
+		find_com(com, envp);
 		com = com->next;
 	}
 }
