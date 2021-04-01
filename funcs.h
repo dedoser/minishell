@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 17:16:58 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/01 17:31:42 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 # define FUNCS_H
 
 # include "main_struct.h"
-# include "gnl/get_next_line.h"
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <term.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <dirent.h>
+
+t_glob	g_var;
 
 void	exit_error(const char *str);
 void	go_further(char *str, char c, int *i);
@@ -52,4 +45,6 @@ int		create_com(t_com *com);
 void	run_com(t_com **com);
 void	find_com(t_com *com, t_envp *env);
 void	launch_com(t_com *com);
+void	export_out(t_envp *envp);
+char	**ft_split_envp(char *str, char c);
 #endif

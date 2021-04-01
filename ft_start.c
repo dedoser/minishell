@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 19:12:47 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/01 20:35:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ void	add_line(t_hist *hist, char *str)
 
 	list = hist->list;
 	hist->last++;
-	hist->cur = hist->last;
+	hist->cur = hist->last + 1;
 	if (list->str == NULL)
-	{
 		list->str = str;
-	}
 	else
 	{
 		while (list->next)
@@ -48,30 +46,39 @@ void	delete_history(t_hist *hist)
 	}
 }
 
+t_str	*copy_list(t_str *list)
+{
+	t_str	*res;
+	t_str	*tmp;
+
+	if (!(res = (t_str *)malloc(sizeof(t_str))))
+		exit_error("Malloc error");
+	tmp = res;
+	while (list)
+	{
+		tmp->str = ft_strdup(list->str);
+		if (list->next)
+		{
+			if (!(tmp->next = (t_str *)malloc(sizeof(t_str))))
+				exit_error("Malloc error");
+			tmp = tmp->next;
+		}
+		list = list->next;
+	}
+	tmp->next = NULL;
+	return (res);
+}
+
 t_hist	*history_copy(t_hist *hist)
 {
 	t_hist	*res;
-	t_str	*list;
-	t_str	*tmp;
 
 	if (!(res = (t_hist *)malloc(sizeof(t_hist))))
 		exit_error("Malloc error");
 	res->envp = hist->envp;
 	res->cur = hist->cur;
 	res->last = hist->last;
-	list = hist->list;
-	if (!(tmp = (t_str *)malloc(sizeof(t_str))))
-		exit_error("Malloc error");
-	res->list = tmp;
-	while (list)
-	{
-		tmp->str = ft_strdup(list->str);
-		if (!(tmp->next = (t_str *)malloc(sizeof(t_str))))
-			exit_error("Malloc error");
-		tmp = tmp->next;
-		list = list->next;
-	}
-	tmp->next = NULL;
+	res->list = copy_list(hist->list);
 	return (res);
 }
 
@@ -93,13 +100,13 @@ void	start(t_hist *hist)
 {
 	t_com	**com;
 	char	*str;
-	t_hist	*copy_hist;
 
 	com = NULL;
 	while (1)
 	{
-		copy_hist = history_copy(hist);
-		str = read_line(copy_hist);
+		write(1, "beautiful_shell$ ", 17);
+		g_var.hist = history_copy(hist);
+		str = read_line(g_var.hist);
 		if (!ft_strncmp(str, "\4", 1))
 			break ;
 		if (ft_strlen(str))
@@ -108,6 +115,7 @@ void	start(t_hist *hist)
 			com = parse_com(str, hist->envp);
 			run_com(com);
 		}
+		delete_history(g_var.hist);
 	}
 	delete_history(hist);
 }

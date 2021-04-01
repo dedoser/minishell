@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 19:43:36 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/01 20:39:37 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,39 +71,23 @@ void	init_save_term(struct termios *term)
 	tgetent(0, "xterm-256color");
 }
 
-void	add_hist(t_hist *hist)
-{
-	t_str	*list;
-
-	if (hist->last == 0)
-		return ;
-	list = hist->list;
-	while (list->next)
-		list = list->next;
-	if (!(list->next = (t_str *)malloc(sizeof(t_list))))
-		exit_error("Malloc error");
-	list->next->next = NULL;
-	list->next->str = NULL;
-	hist->last++;
-}
-
 void	print_prev(t_hist *hist)
 {
 	t_str	*list;
 	int		i;
 	char	*output;
 
-	if (hist->cur == 0)
-		return ;
-	else
+	hist->cur--;
+	if (hist->cur <= 0)
 	{
-		hist->cur--;
-		list = hist->list;
-		i = -1;
-		while (++i < hist->cur)
-			list = list->next;
-		output = list->str;
+		hist->cur++;
+		return ;
 	}
+	list = hist->list;
+	i = 0;
+	while (++i < hist->cur)
+		list = list->next;
+	output = list->str;
 	tputs(restore_cursor, 1, &ft_putchar);
 	tputs(clr_eos, 1, &ft_putchar);
 	write(1, output, ft_strlen(output));
@@ -115,13 +99,18 @@ void	print_next(t_hist *hist, char *str)
 	int		i;
 	char	*output;
 
-	if (hist->cur == hist->last)
+	if (hist->cur == hist->last + 1)
+		return ;
+	hist->cur++;
+	if (hist->cur == hist->last + 1)
+	{
 		output = str;
+		hist->cur = hist->last + 1;
+	}
 	else
 	{
-		hist->cur++;
 		list = hist->list;
-		i = -1;
+		i = 0;
 		while (++i < hist->cur)
 			list = list->next;
 		output = list->str;
@@ -138,11 +127,9 @@ void	press_backspace(char *str, t_hist *hist)
 	int		i;
 	t_str	*list;
 
-	tputs(cursor_left, 1, &ft_putchar);
-	tputs(delete_character, 1, &ft_putchar);
-	if (hist->cur != hist->last)
+	if (hist->cur != hist->last + 1)
 	{
-		i = -1;
+		i = 0;
 		list = hist->list;
 		while (++i < hist->cur)
 			list = list->next;
@@ -152,7 +139,12 @@ void	press_backspace(char *str, t_hist *hist)
 		line = str;
 	cur = ft_strlen(line);
 	cur = (cur > 0) * cur;
-	line[cur - 1] = '\0';
+	if (cur)
+		line[cur - 1] = '\0';
+	if (!cur)
+		return ;
+	tputs(cursor_left, 1, &ft_putchar);
+	tputs(delete_character, 1, &ft_putchar);
 }
 
 char	*ret_str(char *str, t_hist *hist)
@@ -160,9 +152,9 @@ char	*ret_str(char *str, t_hist *hist)
 	int		i;
 	char	*res;
 
-	if (hist->cur == hist->last)
+	if (hist->cur == hist->last + 1)
 		return (str);
-	i = -1;
+	i = 0;
 	while (++i < hist->cur)
 		hist->list = hist->list->next;
 	res = ft_strcat(ft_strdup(hist->list->str), str);
@@ -178,6 +170,8 @@ int		press_key(char *buf, char *str, t_hist *hist)
 		print_next(hist, str);
 	else if (!ft_strncmp(buf, "\177", 1))
 		press_backspace(str, hist);
+	else if (!ft_strcmp(buf, "\e[C") || !ft_strcmp(buf, "\e[D"))
+		return (1);
 	else
 		return (0);
 	return (1);

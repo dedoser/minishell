@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:32:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 21:42:32 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/01 17:16:36 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	echo_com(t_com *com)
 	}
 	if (arg)
 		write(com->out_fd, "\n", 1);
+	errno = 0;
 }
 
 void	cd_com(t_com *com)
@@ -47,6 +48,7 @@ void	pwd_com(t_com *com)
 	write(com->out_fd, str, ft_strlen(str));
 	write(com->out_fd, "\n", 1);
 	free(str);
+	errno = 0;
 }
 
 void	env_com(t_com *com, t_envp *env)
@@ -59,4 +61,5 @@ void	env_com(t_com *com, t_envp *env)
 		write(1, "\n", 1);
 		env = env->next;
 	}
+	errno = 0;
 }
