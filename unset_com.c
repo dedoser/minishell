@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:50:34 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 16:14:31 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:25:13 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ void	delete_elem_envp(char *key, t_envp **envp)
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (tmp == *envp)
-		*envp = tmp->next;
-	else
-		prev = tmp->next;
-	free(tmp->key);
-	free(tmp->value);
-	free(tmp);
+	if (tmp)
+	{
+		if (tmp == *envp)
+			*envp = tmp->next;
+		else
+			prev->next = tmp->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
 }
 
 void	unset_com(t_com *com, t_envp **envp)

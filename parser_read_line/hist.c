@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 21:47:37 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:38:18 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ void	ret_envp(t_envp **envp, char *str)
 
 void	copy_envp(t_hist *hist, char **envp)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	hist->envp = NULL;
 	i = -1;
 	while (envp[++i])
 		ret_envp(&hist->envp, envp[i]);
+	str = ft_strdup("?=0");
+	ret_envp(&hist->envp, str);
+	free(str);
 }

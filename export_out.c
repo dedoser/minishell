@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:42:53 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 17:17:02 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:31:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**sort_key_mass(char **mass)
 	return (mass);
 }
 
-char	*find_envp(char *key, t_envp *envp)
+char	*get_envp(char *key, t_envp *envp)
 {
 	while (envp)
 	{
@@ -89,8 +89,9 @@ void	export_out(t_envp *envp)
 	i = 0;
 	while (key_mass[i])
 	{
-		printf("declare -x %s=\"%s\"\n",
-				key_mass[i], find_envp(key_mass[i], envp));
+		if (ft_strcmp(key_mass[i], "?"))
+			printf("declare -x %s=\"%s\"\n",
+					key_mass[i], get_envp(key_mass[i], envp));
 		++i;
 	}
 	free(key_mass);

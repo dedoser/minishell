@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 17:31:42 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:31:51 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ char	*read_line(t_hist *hist);
 int		check_files(t_com *com);
 int		check_pipes(t_arg *list);
 int		create_com(t_com *com);
-void	run_com(t_com **com);
+void	run_com(t_com **com, t_envp *envp);
 void	find_com(t_com *com, t_envp *env);
-void	launch_com(t_com *com);
+void	launch_com(t_com *com, t_envp *envp);
 void	export_out(t_envp *envp);
 char	**ft_split_envp(char *str, char c);
+void	export_com(t_com *com, t_envp *env);
+void	unset_com(t_com *com, t_envp **envp);
+void	exit_com(t_com *com, t_envp *envp);
+int		build_in(t_com *com, t_envp *envp);
+void	delete_history(t_hist *hist);
+void	sigint_react(int sig);
 #endif

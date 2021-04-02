@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 20:39:37 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 21:26:00 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	print_prev(t_hist *hist)
 	output = list->str;
 	tputs(restore_cursor, 1, &ft_putchar);
 	tputs(clr_eos, 1, &ft_putchar);
+	hist->mod = 0;
 	write(1, output, ft_strlen(output));
 }
 
@@ -115,6 +116,7 @@ void	print_next(t_hist *hist, char *str)
 			list = list->next;
 		output = list->str;
 	}
+	hist->mod = 0;
 	tputs(restore_cursor, 1, &ft_putchar);
 	tputs(clr_eos, 1, &ft_putchar);
 	write(1, output, ft_strlen(output));
@@ -157,7 +159,10 @@ char	*ret_str(char *str, t_hist *hist)
 	i = 0;
 	while (++i < hist->cur)
 		hist->list = hist->list->next;
-	res = ft_strcat(ft_strdup(hist->list->str), str);
+	if (hist->mod)
+		res = ft_strcat(ft_strdup(hist->list->str), str);
+	else
+		res = ft_strdup(hist->list->str);
 	free(str);
 	return (res);
 }
@@ -179,12 +184,10 @@ int		press_key(char *buf, char *str, t_hist *hist)
 
 char	*read_line(t_hist *hist)
 {
-	struct termios	term;
 	char			buf[200];
 	int				l;
 	char			*str;
 
-	init_save_term(&term);
 	buf[0] = '\0';
 	str = ft_strdup("");
 	tputs(save_cursor, 1, ft_putchar);
@@ -196,7 +199,10 @@ char	*read_line(t_hist *hist)
 		{
 			write(1, buf, l);
 			if (buf[l - 1] != '\n' && (buf[l - 1] != '\4' || !ft_strlen(str)))
+			{
 				str = ft_strcat(str, buf);
+				hist->mod = 1;
+			}
 		}
 		if (!ft_strcmp(buf, "\4") && ft_strlen(str) == 1)
 			break ;

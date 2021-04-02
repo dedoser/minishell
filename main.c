@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:06 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 18:56:24 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:26:00 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_hist(t_hist *hist)
 		exit_error("Malloc error");
 	hist->list->next = NULL;
 	hist->list->str = NULL;
+	hist->mod = 0;
 	g_var.child_pid = NULL;
 	g_var.hist = NULL;
 }
@@ -27,22 +28,24 @@ void	init_hist(t_hist *hist)
 void	sigint_react(int sig)
 {
 	if (sig != SIGINT)
+	{
 		return ;
-	else
-		write(1, "\nbeautiful_shell$ ", 18);
+	}
+	write(1, "\nbeautiful shell$ ", 18);
 }
 
 int		main(int argc, char **argv, char **envp)
 {
 	t_hist			hist;
-	struct termios	term;
 
 	if (argc > 1 && !argv[0])
 		return (0);
+	signal(SIGINT, sigint_react);
+	signal(SIGQUIT, SIG_IGN);
 	copy_envp(&hist, envp);
 	init_hist(&hist);
-	init_save_term(&term);
+	init_save_term(&g_var.term);
 	start(&hist);
-	tcsetattr(0, TCSANOW, &term);
+	tcsetattr(0, TCSANOW, &g_var.term);
 	return (0);
 }

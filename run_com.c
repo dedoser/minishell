@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 19:58:46 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 19:14:26 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 20:06:09 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		open_input(t_com *com)
 		while (com->in_files)
 		{
 			com->in_files = com->in_files->next;
-			if ((com->in_fd = open(com->in_files->line, O_RDONLY, S_IREAD)) < 0)
+			if ((com->in_fd = open(com->in_files->line, O_RDONLY,
+				0666)) < 0)
 			{
 				err = 0;
 				printf("%s: No such file or directory\n", com->in_files->line);
@@ -48,7 +49,8 @@ int		open_output(t_com *com)
 			type = ft_strcmp(com->out_files->line, ">") == 0;
 			com->out_files = com->out_files->next;
 			flag = O_CREAT | O_APPEND * !type | O_TRUNC * type | O_WRONLY;
-			if ((com->out_fd = open(com->out_files->line, flag, S_IWRITE)) < 0)
+			if ((com->out_fd = open(com->out_files->line, flag,
+				0666)) < 0)
 			{
 				err = 0;
 				printf("%s: No such file or directory\n", com->out_files->line);
@@ -60,7 +62,7 @@ int		open_output(t_com *com)
 	return (err);
 }
 
-void	run_com(t_com **com)
+void	run_com(t_com **com, t_envp *envp)
 {
 	int		i;
 
@@ -69,6 +71,6 @@ void	run_com(t_com **com)
 	{
 		if (!(com[i]->list) || !open_input(com[i]) || !open_output(com[i]))
 			continue;
-		launch_com(com[i]);
+		launch_com(com[i], envp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/01 21:46:24 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/02 20:48:37 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <dirent.h>
-# include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct s_envp
 {
@@ -52,6 +52,7 @@ typedef struct s_hist
 	t_str	*list;
 	int		cur;
 	int		last;
+	int		mod;
 	t_envp	*envp;
 }			t_hist;
 
@@ -69,13 +70,15 @@ typedef struct s_com
 
 typedef struct s_glob
 {
-	t_hist	*hist;
-	pid_t	*child_pid;
-	int		child_count;
-	int		fd[2];
-	int		prev_fd;
-	int		next_fd;
-	int		cur_child;
+	t_hist			*hist;
+	pid_t			*child_pid;
+	int				child_count;
+	int				fd[2];
+	int				prev_fd;
+	int				next_fd;
+	int				cur_child;
+	int				status;
+	struct termios	term;
 	t_envp	*envp;
 }				t_glob;
 
