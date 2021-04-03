@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 20:48:37 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:04:07 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_com
 typedef struct s_glob
 {
 	t_hist			*hist;
+	t_hist			*cp_hist;
 	pid_t			*child_pid;
 	int				child_count;
 	int				fd[2];
@@ -79,7 +80,9 @@ typedef struct s_glob
 	int				cur_child;
 	int				status;
 	struct termios	term;
-	t_envp	*envp;
+	struct termios	e_term;
+	t_envp			*envp;
+	t_com			**com;
 }				t_glob;
 
 #endif

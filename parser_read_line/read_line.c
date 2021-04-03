@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 21:26:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:41:59 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ int	ft_putchar(int c)
 
 void	init_save_term(struct termios *term)
 {
-	struct termios	t;
 
 	if (!isatty(0))
 		exit_error("Terminal doesn't refer to any terminal");
-	tcgetattr(0, &t);
+	tcgetattr(0, &g_var.e_term);
 	tcgetattr(0, term);
-	t.c_lflag &= ~(ECHO);
-	t.c_lflag &= ~(ICANON);
-	tcsetattr(0, TCSANOW, &t);
+	g_var.e_term.c_lflag &= ~(ECHO);
+	g_var.e_term.c_lflag &= ~(ICANON);
+	tcsetattr(0, TCSANOW, &g_var.e_term);
 	tgetent(0, "xterm-256color");
 }
 
@@ -129,7 +128,7 @@ void	press_backspace(char *str, t_hist *hist)
 	int		i;
 	t_str	*list;
 
-	if (hist->cur != hist->last + 1)
+	if (hist->cur <= hist->last && hist->last != 0)
 	{
 		i = 0;
 		list = hist->list;
@@ -176,6 +175,8 @@ int		press_key(char *buf, char *str, t_hist *hist)
 	else if (!ft_strncmp(buf, "\177", 1))
 		press_backspace(str, hist);
 	else if (!ft_strcmp(buf, "\e[C") || !ft_strcmp(buf, "\e[D"))
+		return (1);
+	else if (!ft_strcmp(buf, "\t"))
 		return (1);
 	else
 		return (0);

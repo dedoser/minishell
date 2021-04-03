@@ -6,23 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:33:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 23:13:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:12:12 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
-
-void	change_errno(t_envp *envp, int err)
-{
-	while (envp)
-	{
-		if (!ft_strcmp(envp->key, "?"))
-			break ;
-		envp = envp->next;
-	}
-	free(envp->value);
-	envp->value = ft_itoa(err);
-}
 
 char	**make_mass_envp(t_envp *envp)
 {
@@ -86,9 +74,12 @@ void	fork_start(t_com *com, t_envp *envp)
 		dup2(g_var.prev_fd, 0);
 		dup2(g_var.next_fd, 1);
 		redirect_fd(com);
+		tcsetattr(0, TCSANOW, &g_var.term);
 		execve(com->args[0], com->args, make_mass_envp(envp));
-		printf("beautiful_shell: %s: command not found\n", com->args[0]);
-		exit(errno);
+		write(2, "beautiful_shell: ", 17);
+		write(2, com->args[0], ft_strlen(com->args[0]));
+		write(2, ": command not found\n", 20);
+		exit(127);
 	}
 	else
 	{
@@ -120,11 +111,13 @@ void	pipe_launch(t_com *com, t_envp *envp)
 		com = com->next;
 	}
 	i = -1;
+	signal(SIGINT, SIG_IGN);
 	while (++i < g_var.child_count)
 	{
 		waitpid(g_var.child_pid[i], &g_var.status, WUNTRACED);
 		change_errno(envp, WEXITSTATUS(g_var.status));
 	}
+	tcsetattr(0, TCSANOW, &g_var.e_term);
 	free(g_var.child_pid);
 }
 

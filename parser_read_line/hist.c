@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 22:38:18 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:26:26 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ void	ret_envp(t_envp **envp, char *str)
 	}
 }
 
+void	shell_level(t_envp *envp)
+{
+	int		cur;
+	t_envp	*prev;
+
+	prev = envp;
+	while (envp)
+	{
+		if (!ft_strcmp(envp->key, "SHLVL"))
+		{
+			cur = ft_atoi(envp->value);
+			free(envp->value);
+			envp->value = ft_itoa(cur + 1);
+			return ;
+		}
+		prev = envp;
+		envp = envp->next;
+	}
+	prev->next = (t_envp *)malloc(sizeof(t_envp));
+	prev = prev->next;
+	prev->key = ft_strdup("SHLVL");
+	prev->value = ft_strdup("1");
+}
+
 void	copy_envp(t_hist *hist, char **envp)
 {
 	int		i;
@@ -65,5 +89,7 @@ void	copy_envp(t_hist *hist, char **envp)
 		ret_envp(&hist->envp, envp[i]);
 	str = ft_strdup("?=0");
 	ret_envp(&hist->envp, str);
+	g_var.envp = hist->envp;
+	shell_level(hist->envp);
 	free(str);
 }

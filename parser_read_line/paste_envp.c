@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 15:56:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:17:28 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ char	*find_envp(char *str, t_envp *envp, int *k, int *beg)
 	}
 	*k += end + 1;
 	*beg = *k;
-	return (envp == NULL ? "" : envp->value);
+	if (!envp)
+		return ("");
+	return (envp->value);
 }
 
 int		does_contain_envp(char *str)

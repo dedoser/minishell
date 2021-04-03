@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:06 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 22:26:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 17:01:17 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_hist(t_hist *hist)
 	hist->mod = 0;
 	g_var.child_pid = NULL;
 	g_var.hist = NULL;
+	g_var.cp_hist = hist;
 }
 
 void	sigint_react(int sig)

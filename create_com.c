@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:02:35 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 19:38:23 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 21:56:42 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,25 @@ void	cut_files_from_list(t_arg **files, t_arg **cur, t_arg **prev)
 	t_arg	*tmp;
 
 	tmp = *cur;
-	(*prev)->next = tmp->next->next;
+	if (*prev != tmp)
+		(*prev)->next = tmp->next->next;
 	tmp->next->next = NULL;
 	back_list(files, tmp);
-	*cur = (*prev)->next;
-	*prev = *cur;
+	if (*cur == *prev)
+	{
+		*cur = (*cur)->next->next;
+	}
+	else
+	{
+		*cur = (*prev)->next;
+		*prev = *cur;
+	}
 }
 
 void	next_pipe(t_com **com, t_arg **cur, t_arg **prev)
 {
-	(*prev)->next = NULL;
+	if (*prev != *cur)
+		(*prev)->next = NULL;
 	if (!((*com)->next = (t_com *)malloc(sizeof(t_com))))
 		exit_error("Malloc error");
 	(*com) = (*com)->next;
@@ -101,21 +110,46 @@ void	make_redirect(t_com *com)
 	}
 }
 
+void	pass_redirect(t_com *com)
+{
+	t_arg	*tmp;
+
+	tmp = com->list;
+	while (tmp)
+	{
+		printf("%s\n", tmp->line);
+		tmp = tmp->next;
+	}
+	while (com->list)
+	{
+		if (com->list->line[0] == '>' || com->list->line[0] == '<')
+			com->list = com->list->next->next;
+		else
+			break ;
+	}
+	printf("%s\n", com->list->line);
+}
+
 int		create_com(t_com *com)
 {
 	if (!com->list)
 		return (0);
 	if (!check_pipes(com->list))
 	{
-		printf("Pipe error\n");
+		write(2,
+		"beautiful shell: syntax error near unexpected token `|\'\n", 56);
 		return (0);
 	}
 	make_pipe(com);
 	if (!check_files(com))
 	{
-		printf("Redirect error\n");
+		write(2,
+		"beautiful shell: syntax error near unexpected token `newline\'\n"
+			, 62);
 		return (0);
 	}
 	make_redirect(com);
+	//ошибка - если редирект в начале, то остальные команды не работают
+	pass_redirect(com);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 21:31:37 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/03 19:06:43 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ void	start(t_hist *hist)
 	char	*str;
 
 	com = NULL;
-	signal(SIGINT, sigint_react);
 	while (1)
 	{
-		write(1, "beautiful_shell$ ", 17);
+		signal(SIGINT, sigint_react);
+		write(1, "beautiful shell$ ", 17);
 		g_var.hist = history_copy(hist);
 		str = read_line(g_var.hist);
-		if (!ft_strncmp(str, "\4", 1))
+		if (str && !ft_strncmp(str, "\4", 1))
 		{
 			write(1, "\n", 1);
 			break ;
@@ -118,6 +118,7 @@ void	start(t_hist *hist)
 			add_line(hist, str);
 			com = parse_com(str, hist->envp);
 			run_com(com, hist->envp);
+			delete_com(com);
 		}
 		delete_history(g_var.hist);
 	}
