@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 19:06:43 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/08 22:23:19 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	start(t_hist *hist)
 		str = read_line(g_var.hist);
 		if (str && !ft_strncmp(str, "\4", 1))
 		{
-			write(1, "\n", 1);
+			write(1, "exit\n", 5);
 			break ;
 		}
 		if (ft_strlen(str))

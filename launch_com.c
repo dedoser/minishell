@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:33:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 17:12:12 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 01:06:03 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,24 @@ void	fork_start(t_com *com, t_envp *envp)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
+		signal(SIGTSTP, SIG_DFL);
 		if (g_var.cur_child == 1)
 			g_var.prev_fd = 0;
 		if (g_var.cur_child == g_var.child_count)
 			g_var.next_fd = 1;
+		printf("%d - %d %d\n", g_var.cur_child, g_var.prev_fd, g_var.next_fd);
 		dup2(g_var.prev_fd, 0);
 		dup2(g_var.next_fd, 1);
+		if (g_var.prev_fd != 0)
+			close(g_var.prev_fd);
+		if (g_var.next_fd != 1)
+			close(g_var.next_fd);
 		redirect_fd(com);
 		tcsetattr(0, TCSANOW, &g_var.term);
-		execve(com->args[0], com->args, make_mass_envp(envp));
+		if (!build_in(com, envp))
+			execve(com->args[0], com->args, make_mass_envp(envp));
+		else
+			exit(0);
 		write(2, "beautiful_shell: ", 17);
 		write(2, com->args[0], ft_strlen(com->args[0]));
 		write(2, ": command not found\n", 20);
@@ -85,6 +94,8 @@ void	fork_start(t_com *com, t_envp *envp)
 	{
 		signal(SIGTSTP, SIG_IGN);
 		g_var.child_pid[g_var.cur_child - 1] = t_pid;
+		if (g_var.prev_fd != 0)
+			close(g_var.prev_fd);
 		g_var.prev_fd = g_var.fd[0];
 		if (g_var.next_fd != 1)
 			close(g_var.next_fd);
@@ -115,7 +126,18 @@ void	pipe_launch(t_com *com, t_envp *envp)
 	while (++i < g_var.child_count)
 	{
 		waitpid(g_var.child_pid[i], &g_var.status, WUNTRACED);
-		change_errno(envp, WEXITSTATUS(g_var.status));
+		if (WIFEXITED(g_var.status))
+			change_errno(envp, WEXITSTATUS(g_var.status));
+		else if (WIFSIGNALED(g_var.status))
+		{
+			change_errno(envp, 128 + WTERMSIG(g_var.status));
+			write(1, "\n", 1);
+		}
+		else if (WIFSTOPPED(g_var.status))
+		{
+			write(1, "\n", 1);
+			change_errno(envp, 128 + WSTOPSIG(g_var.status));
+		}
 	}
 	tcsetattr(0, TCSANOW, &g_var.e_term);
 	free(g_var.child_pid);

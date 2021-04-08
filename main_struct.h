@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 17:04:07 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/08 21:26:00 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@
 # include <string.h>
 # include <errno.h>
 # include <term.h>
+# include <curses.h>
 # include <fcntl.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <sys/types.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 typedef struct s_envp
 {
@@ -63,6 +67,7 @@ typedef struct s_com
 	int		out_fd;
 	int		in_fd;
 	t_arg	*list;
+	t_arg	*arg_list;
 	t_arg	*in_files;
 	t_arg	*out_files;
 	struct s_com	*next;

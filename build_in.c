@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:32:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 19:40:12 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/08 21:45:16 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		echo_com(t_com *com)
 		else
 		{
 			write(com->out_fd, com->args[i], ft_strlen(com->args[i]));
-			write(com->out_fd, " ", 1);
+			if (com->args[i + 1])
+				write(com->out_fd, " ", 1);
 		}
 	}
 	if (!arg)
@@ -129,7 +130,7 @@ int		build_in(t_com *com, t_envp *envp)
 	else if (!ft_strcmp(com->args[0], "unset"))
 		res = unset_com(com, &envp);
 	else if (!ft_strcmp(com->args[0], "echo") ||
-			!ft_strcmp(com->args[0], "/bin/echo"))
+			!ft_strcmp(com->args[0], "/usr/bin/echo"))
 		res = echo_com(com);
 	else if (!ft_strcmp(com->args[0], "exit"))
 		exit_com();

@@ -6,7 +6,7 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/04/03 16:11:33 by fignigno         ###   ########.fr        #
+#    Updated: 2021/04/07 19:45:16 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ LIBFT = ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) 
-	gcc -ltermcap $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	clang -ltermcap $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C ./libft
 
 $(OBJS): %.o : %.c
-	gcc $(FLAGS) -c $< -o $@
+	clang $(FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS) $(TERM_OBJS)

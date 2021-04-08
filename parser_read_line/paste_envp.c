@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 19:17:28 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:50:50 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		does_contain_envp(char *str)
 
 	i = -1;
 	prev = str[0];
+	if (ft_strlen(str) == 1 && str[0] == '$')
+		return (0);
 	while (str[++i])
 	{
 		if (str[i] == '$' && prev != '\\')
@@ -103,7 +105,6 @@ void	paste_envp(t_arg *args, t_envp *envp)
 	{
 		if ((args->line)[0] != '\'' && does_contain_envp((args->line)))
 			args->line = replace_all_envp(args->line, envp);
-		// printf("%s %d\n", args->line, len_without_slash(args->line, (args->line)[0] == '\"'));
 		args = args->next;
 	}
 }

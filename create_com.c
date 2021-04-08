@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:02:35 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 21:56:42 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/08 21:27:45 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	cut_files_from_list(t_arg **files, t_arg **cur, t_arg **prev)
 	tmp->next->next = NULL;
 	back_list(files, tmp);
 	if (*cur == *prev)
-	{
 		*cur = (*cur)->next->next;
-	}
 	else
 	{
 		*cur = (*prev)->next;
@@ -112,22 +110,13 @@ void	make_redirect(t_com *com)
 
 void	pass_redirect(t_com *com)
 {
-	t_arg	*tmp;
-
-	tmp = com->list;
-	while (tmp)
+	while (com->arg_list)
 	{
-		printf("%s\n", tmp->line);
-		tmp = tmp->next;
-	}
-	while (com->list)
-	{
-		if (com->list->line[0] == '>' || com->list->line[0] == '<')
-			com->list = com->list->next->next;
+		if (com->arg_list->line[0] == '>' || com->arg_list->line[0] == '<')
+			com->arg_list = com->arg_list->next->next;
 		else
 			break ;
 	}
-	printf("%s\n", com->list->line);
 }
 
 int		create_com(t_com *com)
@@ -148,8 +137,8 @@ int		create_com(t_com *com)
 			, 62);
 		return (0);
 	}
-	make_redirect(com);
-	//ошибка - если редирект в начале, то остальные команды не работают
 	pass_redirect(com);
+	make_redirect(com);
+	com->list = com->arg_list;
 	return (1);
 }
