@@ -6,14 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:49:19 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/08 21:26:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/10 00:51:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_STRUCT_H
 #define MAIN_STRUCT_H
 
-# include "gnl/get_next_line.h"
 # include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -88,6 +87,7 @@ typedef struct s_glob
 	struct termios	e_term;
 	t_envp			*envp;
 	t_com			**com;
+	char			*str;
 }				t_glob;
 
 #endif

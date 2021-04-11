@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:27:02 by fignigno          #+#    #+#             */
-/*   Updated: 2020/10/30 15:43:43 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:42:50 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	unsigned char	*tmp;
 	size_t			i;
 
-	if ((res = (malloc(nmemb * size))) == NULL)
+	res = malloc(nmemb * size);
+	if (!res)
 		return (NULL);
 	i = 0;
 	tmp = res;

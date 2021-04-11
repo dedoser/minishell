@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:06 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 17:01:17 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/10 00:52:52 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	sigint_react(int sig)
 		return ;
 	}
 	write(1, "\nbeautiful shell$ ", 18);
+	tputs(save_cursor, 1, ft_putchar);
+	free(g_var.str);
+	g_var.str = ft_strdup("");
 }
 
 int		main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/08 22:23:19 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/10 02:39:52 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	delete_history(t_hist *hist)
 			free(list->str);
 		free(list);
 	}
+	free(hist);
 }
 
 t_str	*copy_list(t_str *list)
@@ -108,6 +109,7 @@ void	start(t_hist *hist)
 		write(1, "beautiful shell$ ", 17);
 		g_var.hist = history_copy(hist);
 		str = read_line(g_var.hist);
+		delete_history(g_var.hist);
 		if (str && !ft_strncmp(str, "\4", 1))
 		{
 			write(1, "exit\n", 5);
@@ -117,10 +119,10 @@ void	start(t_hist *hist)
 		{
 			add_line(hist, str);
 			com = parse_com(str, hist->envp);
+			g_var.com = com;
 			run_com(com, hist->envp);
 			delete_com(com);
 		}
-		delete_history(g_var.hist);
 	}
 	delete_history(hist);
 }

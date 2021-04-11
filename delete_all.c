@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:33:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 21:19:41 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/11 20:47:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void	delete_com(t_com **com)
 {
 	int		i;
 	t_com	*tmp;
+	t_com	**mass;
 
 	i = 0;
-	while (com[i])
+	mass = com;
+	while (mass[i])
 	{
-		delete_list(com[i]->list);
+		free(mass[i]->line);
+		delete_list(mass[i]->list);
 		while (com[i])
 		{
 			delete_mass(com[i]->args);
@@ -71,5 +74,6 @@ void	delete_com(t_com **com)
 		}
 		++i;
 	}
+	free(mass);
 	// delete_envp();
 }

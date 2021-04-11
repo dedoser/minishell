@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 18:54:59 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/13 20:13:44 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:28:41 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t i;
+	size_t	i;
 
 	if (!s)
 		return (0);

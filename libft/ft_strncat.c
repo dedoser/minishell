@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:49:29 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/08 16:49:03 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:28:12 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	*ft_strncat(char *dst, const char *src, size_t n)
 
 	tmp = ft_strlen(src);
 	dst_len = ft_strlen(dst);
-	tmp = tmp > n ? n : tmp;
-	if (!(res = (char *)malloc(sizeof(char) * (tmp + 1 + dst_len))))
+	if (tmp > n)
+		tmp = n;
+	res = (char *)malloc(sizeof(char) * (tmp + 1 + dst_len));
+	if (res == NULL)
 		return (NULL);
 	i = -1;
 	if (dst)
@@ -32,7 +34,7 @@ char	*ft_strncat(char *dst, const char *src, size_t n)
 	i = -1;
 	while (++i < (int)tmp)
 		res[i + dst_len] = src[i];
-	res[i + dst_len] = '\0'; 
+	res[i + dst_len] = '\0';
 	if (dst)
 		free(dst);
 	return (res);

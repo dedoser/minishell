@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:32:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/20 21:46:16 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:35:37 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strdup(const char *s)
 
 	if (!s)
 		return (NULL);
-	if ((res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))) == NULL)
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (res == NULL)
 		return (NULL);
 	i = 0;
 	while (s[i])

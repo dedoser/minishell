@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:29:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/26 18:30:45 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:28:27 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	int		i;
 

@@ -6,16 +6,11 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 19:41:59 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/10 02:25:53 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
-
-int	ft_putchar(int c)
-{
-	return (write(1, &c, 1));
-}
 
 // int main()
 // {
@@ -121,6 +116,32 @@ void	print_next(t_hist *hist, char *str)
 	write(1, output, ft_strlen(output));
 }
 
+void	move_cursor(char *line)
+{
+	int		w;
+	int		h;
+	size_t	len;
+	int		i;
+
+	w = tgetnum("co");
+	h = tgetnum("li");
+	len = ft_strlen(line);
+	if (len + 1 == w - ft_strlen("beautiful shell$ "))
+	{
+		tputs(cursor_up, 1, &ft_putchar);
+		i = -1;
+		while (++i < w)
+			tputs(cursor_right, 1, &ft_putchar);
+	}
+	else
+		tputs(cursor_left, 1, &ft_putchar);
+	tputs(delete_character, 1, &ft_putchar);
+	// tputs(restore_cursor, 1, &ft_putchar);
+	// if (tgetnum("co") - ft_strlen("beauti"))
+	// tputs(clr_eos, 1, &ft_putchar);
+	// write(1, line, ft_strlen(line));
+}
+
 void	press_backspace(char *str, t_hist *hist)
 {
 	int		cur;
@@ -144,8 +165,9 @@ void	press_backspace(char *str, t_hist *hist)
 		line[cur - 1] = '\0';
 	if (!cur)
 		return ;
-	tputs(cursor_left, 1, &ft_putchar);
-	tputs(delete_character, 1, &ft_putchar);
+	move_cursor(line);
+	// tputs(cursor_left, 1, &ft_putchar);
+	// tputs(delete_character, 1, &ft_putchar);
 }
 
 char	*ret_str(char *str, t_hist *hist)
@@ -187,26 +209,25 @@ char	*read_line(t_hist *hist)
 {
 	char			buf[200];
 	int				l;
-	char			*str;
 
 	buf[0] = '\0';
-	str = ft_strdup("");
+	g_var.str = ft_strdup("");
 	tputs(save_cursor, 1, ft_putchar);
 	while (ft_strncmp(buf, "\n", 1))
 	{
 		l = read(0, buf, 100);
 		buf[l] = '\0';
-		if (!press_key(buf, str, hist))
+		if (!press_key(buf, g_var.str, hist))
 		{
 			write(1, buf, l);
-			if (buf[l - 1] != '\n' && (buf[l - 1] != '\4' || !ft_strlen(str)))
+			if (buf[l - 1] != '\n' && (buf[l - 1] != '\4' || !ft_strlen(g_var.str)))
 			{
-				str = ft_strcat(str, buf);
+				g_var.str = ft_strcat(g_var.str, buf);
 				hist->mod = 1;
 			}
 		}
-		if (!ft_strcmp(buf, "\4") && ft_strlen(str) == 1)
+		if (!ft_strcmp(buf, "\4") && ft_strlen(g_var.str) == 1)
 			break ;
 	}
-	return (ret_str(str, hist));
+	return (ret_str(g_var.str, hist));
 }

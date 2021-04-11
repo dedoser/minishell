@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"libft.h": "c",
-		"funcs.h": "c"
+		"funcs.h": "c",
+		"main_struct.h": "c"
 	}
 }

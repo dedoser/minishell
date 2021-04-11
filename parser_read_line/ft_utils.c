@@ -6,11 +6,16 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:56:05 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/23 19:06:21 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/11 20:30:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
+
+int	ft_putchar(int c)
+{
+	return (write(1, &c, 1));
+}
 
 void	go_further(char *str, char c, int *i)
 {

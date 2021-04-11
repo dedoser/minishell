@@ -6,11 +6,32 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 19:04:12 by fignigno          #+#    #+#             */
-/*   Updated: 2020/10/31 23:32:19 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:23:22 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	go_up(unsigned char *src, unsigned char *dest, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = src[i];
+		++i;
+	}
+}
+
+void	go_back(unsigned char *src, unsigned char *dest, size_t n)
+{
+	while (n)
+	{
+		--n;
+		dest[n] = src[n];
+	}
+}
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
@@ -24,18 +45,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	csrc = (unsigned char *)src;
 	cdest = (unsigned char *)dest;
 	if (cdest < csrc)
-	{
-		while (i < n)
-		{
-			cdest[i] = csrc[i];
-			++i;
-		}
-	}
+		go_up(csrc, cdest, n);
 	else
-		while (n)
-		{
-			--n;
-			cdest[n] = csrc[n];
-		}
+		go_back(csrc, cdest, n);
 	return (dest);
 }

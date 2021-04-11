@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:33:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/09 01:06:03 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/11 20:25:04 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	redirect_fd(t_com *com)
 void	fork_start(t_com *com, t_envp *envp)
 {
 	pid_t	t_pid;
+	char	**envp_mass;
 
 	t_pid = fork();
 	if (t_pid == -1)
@@ -72,7 +73,6 @@ void	fork_start(t_com *com, t_envp *envp)
 			g_var.prev_fd = 0;
 		if (g_var.cur_child == g_var.child_count)
 			g_var.next_fd = 1;
-		printf("%d - %d %d\n", g_var.cur_child, g_var.prev_fd, g_var.next_fd);
 		dup2(g_var.prev_fd, 0);
 		dup2(g_var.next_fd, 1);
 		if (g_var.prev_fd != 0)
@@ -81,13 +81,16 @@ void	fork_start(t_com *com, t_envp *envp)
 			close(g_var.next_fd);
 		redirect_fd(com);
 		tcsetattr(0, TCSANOW, &g_var.term);
+		envp_mass = make_mass_envp(envp);
 		if (!build_in(com, envp))
-			execve(com->args[0], com->args, make_mass_envp(envp));
+			execve(com->args[0], com->args, envp_mass);
 		else
 			exit(0);
-		write(2, "beautiful_shell: ", 17);
+		write(2, "beautiful shell: ", 17);
 		write(2, com->args[0], ft_strlen(com->args[0]));
 		write(2, ": command not found\n", 20);
+		delete_mass(envp_mass);
+		// delete_com(g_var.com);
 		exit(127);
 	}
 	else

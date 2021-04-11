@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 20:01:22 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 19:31:13 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:34:34 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ char	*ft_strcat(char *src, char *dst)
 	int		j;
 	char	*res;
 
-	if (!(res = (char *)malloc(sizeof(char) *
-		(ft_strlen(src) + ft_strlen(dst) + 1))))
+	res = (char *)malloc(sizeof(char)
+			* (ft_strlen(src) + ft_strlen(dst) + 1));
+	if (res == NULL)
 		return (NULL);
 	i = 0;
 	j = -1;
@@ -42,8 +43,9 @@ char	*ft_strfcat(char *src, char *dst)
 	int		j;
 	char	*res;
 
-	if (!(res = (char *)malloc(sizeof(char) *
-		(ft_strlen(src) + ft_strlen(dst) + 1))))
+	res = (char *)malloc(sizeof(char)
+			* (ft_strlen(src) + ft_strlen(dst) + 1));
+	if (res == NULL)
 		return (NULL);
 	i = 0;
 	j = -1;

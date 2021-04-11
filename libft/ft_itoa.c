@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 17:44:43 by fignigno          #+#    #+#             */
-/*   Updated: 2020/10/31 20:39:36 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:53:01 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	count(long long n)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	if (n < 0)
@@ -32,7 +32,16 @@ static int	count(long long n)
 	return (res);
 }
 
-char		*ft_itoa(int n)
+void	fill_str(char *str, long long dig, int size)
+{
+	while (dig != 0)
+	{
+		str[--size] = dig % 10 + '0';
+		dig /= 10;
+	}
+}
+
+char	*ft_itoa(int n)
 {
 	char		*res;
 	int			size;
@@ -40,7 +49,8 @@ char		*ft_itoa(int n)
 
 	tmp = n;
 	size = count(n);
-	if ((res = (char *)malloc(sizeof(char) * (size + 1))) == NULL)
+	res = (char *)malloc(sizeof(char) * (size + 1));
+	if (res == NULL)
 		return (NULL);
 	res[size] = '\0';
 	if (n < 0)
@@ -53,10 +63,6 @@ char		*ft_itoa(int n)
 		res[0] = '0';
 		return (res);
 	}
-	while (tmp != 0)
-	{
-		res[--size] = tmp % 10 + '0';
-		tmp /= 10;
-	}
+	fill_str(res, tmp, size);
 	return (res);
 }

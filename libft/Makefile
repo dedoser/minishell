@@ -6,7 +6,7 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/01 01:35:10 by ehillman          #+#    #+#              #
-#    Updated: 2021/04/07 19:58:43 by fignigno         ###   ########.fr        #
+#    Updated: 2021/04/09 23:34:59 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC =  	ft_isalnum.c\
 		ft_memccpy.c\
 		ft_memset.c\
 		ft_split.c\
-		ft_strlcpy.c\
 		ft_strnstr.c\
 		ft_atoi.c\
 		ft_isascii.c\
@@ -32,7 +31,6 @@ SRC =  	ft_isalnum.c\
 		ft_putchar_fd.c\
 		ft_strchr.c\
 		ft_strlen.c\
-		ft_strtrim.c\
 		ft_bzero.c\
 		ft_isdigit.c\
 		ft_memcmp.c\
@@ -51,17 +49,7 @@ SRC =  	ft_isalnum.c\
 		ft_strncat.c\
 		ft_strcmp.c\
 
-BONUS =	ft_lstnew.c\
-		ft_lstadd_front.c\
-		ft_lstadd_back.c\
-		ft_lstsize.c\
-		ft_lstlast.c\
-		ft_lstdelone.c\
-		ft_lstclear.c\
-		ft_lstiter.c\
-		ft_lstmap.c
 OBJS = $(SRC:.c=.o)
-OBJS_B=$(BONUS:.c=.o)
 LIB = ar rc
 
 all:	$(NAME)
@@ -70,14 +58,11 @@ $(NAME): $(OBJS)
 		$(LIB) $(NAME) $(OBJS)
 
 clean:
-		rm -f $(OBJS) $(OBJS_B)
+		rm -f $(OBJS)
 
 fclean:		clean
 		rm -f libft.a
 
 re:		fclean all
-
-bonus:	$(OBJS) $(OBJS_B)
-		$(LIB) $(NAME) $(OBJS) $(OBJS_B)
 
 .PHONY:	all, clean, fclean, re, bonus

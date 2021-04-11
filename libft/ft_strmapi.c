@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 18:02:48 by fignigno          #+#    #+#             */
-/*   Updated: 2020/10/30 18:09:43 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:39:03 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	i = 0;
 	if (f == NULL || s == NULL)
 		return (NULL);
-	if ((res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))) == NULL)
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (res == NULL)
 		return (NULL);
 	while (s[i])
 	{

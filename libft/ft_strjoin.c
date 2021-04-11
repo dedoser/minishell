@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:35:27 by fignigno          #+#    #+#             */
-/*   Updated: 2020/11/04 14:12:58 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 23:32:45 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	if (!s1)
 		return (NULL);
-	if ((res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1)) == NULL)
+	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (res == NULL)
 		return (NULL);
 	i = 0;
 	while (s1[i])

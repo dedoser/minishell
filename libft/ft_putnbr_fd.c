@@ -6,15 +6,15 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 18:38:33 by fignigno          #+#    #+#             */
-/*   Updated: 2020/11/01 19:45:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:40:03 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count(int n)
+int	count(int n)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	while (n != 0)
