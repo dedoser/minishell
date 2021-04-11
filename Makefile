@@ -6,12 +6,12 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/04/11 21:14:23 by fignigno         ###   ########.fr        #
+#    Updated: 2021/04/11 21:18:55 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-FLAGS = -g -Wall -Werror -Wextra
+FLAGS = -g -Wall -Werror -Wextra -fsanitize=address
 SRCS =	parser_read_line/read_line.c\
 		main.c ft_start.c parser_read_line/ft_utils.c parser_read_line/hist.c parser_read_line/parser.c \
 		parser_read_line/found_args_div.c parser_read_line/divide_coms.c parser_read_line/special_char_parser.c \

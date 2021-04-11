@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/10 02:33:17 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/11 21:35:39 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int		count_coms(char *str)
 		else
 			++i;
 	}
-	if (!ind)
-		return (1);
-	return (res);
+	return (res + 1);
 }
 
 void	divide_coms(t_com **com, char *str, int count)

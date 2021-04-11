@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 22:23:44 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/10 02:39:52 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/11 21:39:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,25 @@ void	delete_temp_history(t_hist *hist)
 	free(hist);
 }
 
+int		check_line(char *str)
+{
+	char	prev;
+	int		i;
+
+	prev = str[0];
+	if (prev == ';')
+		return (0);
+	i = 1;
+	while (str[i])
+	{
+		if (prev == str[i] && prev == ';')
+			return (0);
+		prev = str[i];
+		++i;
+	}
+	return (1);
+}
+
 void	start(t_hist *hist)
 {
 	t_com	**com;
@@ -118,6 +137,13 @@ void	start(t_hist *hist)
 		if (ft_strlen(str))
 		{
 			add_line(hist, str);
+			if (!check_line(str))
+			{
+				write(2,
+				"beautiful shell$: syntax error near unexpected token `;\'\n",
+				57);
+				continue ;
+			}
 			com = parse_com(str, hist->envp);
 			g_var.com = com;
 			run_com(com, hist->envp);
