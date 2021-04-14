@@ -6,21 +6,21 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 17:43:36 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/08 16:50:50 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:30:28 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		end_of_envp(char *str)
+int	end_of_envp(char *str)
 {
 	int		i;
 
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '\\' || str[i] == ' ' || str[i] == '$' ||
-			str[i] == '\"')
+		if (str[i] == '\\' || str[i] == ' ' || str[i] == '$'
+			|| str[i] == '\"')
 			return (i);
 	}
 	return (i);
@@ -53,7 +53,7 @@ char	*find_envp(char *str, t_envp *envp, int *k, int *beg)
 	return (envp->value);
 }
 
-int		does_contain_envp(char *str)
+int	does_contain_envp(char *str)
 {
 	int		i;
 	char	prev;

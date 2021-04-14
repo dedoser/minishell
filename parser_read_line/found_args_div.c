@@ -6,18 +6,18 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 23:27:21 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 17:07:49 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:28:27 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		end_quote(char quote, char prev, char cur)
+int	end_quote(char quote, char prev, char cur)
 {
 	return (prev != '\\' || cur != quote);
 }
 
-int		quote_len(char *str, char quote)
+int	quote_len(char *str, char quote)
 {
 	int		i;
 
@@ -41,8 +41,8 @@ char	*quote_found(char **str, char quote)
 
 	(*str)++;
 	len = quote_len(*str, quote);
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		exit_error("Malloc_error");
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	alloc_check(res);
 	res[0] = quote;
 	i = 0;
 	while ((*str)[i] && i < len - 1)
@@ -55,39 +55,13 @@ char	*quote_found(char **str, char quote)
 	return (res);
 }
 
-// char	*d_quote_found(char **str)
-// {
-// 	char	*res;
-// 	int		i;
-// 	int		j;
-
-// 	(*str)++;
-// 	if (!(res = (char *)malloc(sizeof(char) * (d_quote_len(*str)))))
-// 		exit_error("Malloc error");
-// 	res[0] = '\"';
-// 	i = 0;
-// 	j = 1;
-// 	while (*str[i] && *str[i] != '\"')
-// 	{
-// 		if (*str[i] == '\'' && (*str[i + 1] == '\\' || *str[i + 1] == '\"' ||
-// 			*str[i + 1] == '$'))
-// 			++i;
-// 		res[j] = *str[i];
-// 		++j;
-// 		++i;
-// 	}
-// 	res[j] = '\"';
-// 	res[j + 1] = '\0';
-// 	return (res);
-// }
-
-int		end_spec(char cur, char prev)
+int	end_spec(char cur, char prev)
 {
-	return ((cur == '|' || cur == '\'' || cur == '\"' ||
-			cur == '<' || cur == '>' || cur == ' ') && prev != '\\');
+	return ((cur == '|' || cur == '\'' || cur == '\"'
+			|| cur == '<' || cur == '>' || cur == ' ') && prev != '\\');
 }
 
-int		len_spec(char *str)
+int	len_spec(char *str)
 {
 	int		i;
 	char	c;
@@ -110,8 +84,8 @@ char	*spec_found(char **str, char *prev)
 		return (redirect_found(str));
 	if (**str == '|')
 		return (pipe_found());
-	if (!(res = (char *)malloc(sizeof(char) * (len_spec(*str) + 1))))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * (len_spec(*str) + 1));
+	alloc_check(res);
 	c = (*str)[i];
 	while ((*str)[i] && !end_spec((*str)[i], c))
 	{

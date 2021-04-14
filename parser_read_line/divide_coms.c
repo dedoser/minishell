@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 21:35:39 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:26:35 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	init_com(t_com **com, int count)
 	i = 0;
 	while (i < count)
 	{
-		if (!(com[i] = (t_com *)malloc(sizeof(t_com))))
-			exit_error("Malloc error");
+		com[i] = (t_com *)malloc(sizeof(t_com));
+		alloc_check(com[i]);
 		com[i]->in_fd = 0;
 		com[i]->out_fd = 1;
 		com[i]->in_files = NULL;
@@ -30,7 +30,7 @@ void	init_com(t_com **com, int count)
 	com[i] = NULL;
 }
 
-int		count_coms(char *str)
+int	count_coms(char *str)
 {
 	int		i;
 	int		res;
@@ -82,7 +82,7 @@ void	divide_coms(t_com **com, char *str, int count)
 	}
 	if (cur < count)
 		com[cur++]->line = ft_strdup(&str[prev]);
-	com[cur] = NULL;	
+	com[cur] = NULL;
 	free(str);
 }
 
@@ -93,8 +93,8 @@ t_com	**parse_com(char *str, t_envp *envp)
 	t_com	**com;
 
 	count = count_coms(str);
-	if (!(com = (t_com **)malloc(sizeof(t_com *) * (count_coms(str) + 1))))
-		exit_error("Malloc error");
+	com = (t_com **)malloc(sizeof(t_com *) * (count_coms(str) + 1));
+	alloc_check(com);
 	init_com(com, count);
 	divide_coms(com, ft_strdup(str), count);
 	i = 0;

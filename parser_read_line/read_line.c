@@ -6,55 +6,14 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/14 20:20:02 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:31:54 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-// int main()
-// {
-
-// 	char			str[2000];
-// 	int				l;
-
-// 	while (ft_strncmp(str, "\4", 1))
-// 	{
-// 		tputs(save_cursor, 1, ft_putchar);
-// 		while (1)
-// 		{
-// 			l = read(0, str, 100);
-// 			if (!ft_strncmp(str, "\e[A", ft_strlen("\e[A")))
-// 			{
-// 				tputs(restore_cursor, 1, &ft_putchar);
-// 				tputs(clr_eos, 1, &ft_putchar);
-// 				write(1, "previous", 8);
-// 			}
-// 			else if (!ft_strncmp(str, "\e[B", ft_strlen("\e[B")))
-// 			{
-// 				tputs(restore_cursor, 1, &ft_putchar);
-// 				tputs(clr_eos, 1, &ft_putchar);
-// 				write(1, "next", 4);
-// 			}
-// 			else if (!ft_strncmp(str, "\177", 1))
-// 			{
-// 				tputs(cursor_left, 1, &ft_putchar);
-// 				tputs(delete_character, 1, &ft_putchar);
-// 			}
-// 			else
-// 				write(1, str, l);
-// 			if (!ft_strncmp(str, "\n", 1) || !ft_strncmp(str, "\4", 1))
-// 				break ;
-// 		}
-// 	}
-// 	write(1, "\n", 1);
-// 	tcsetattr(0, TCSANOW, &tmp);
-// 	return (0);
-// }
-
 void	init_save_term(struct termios *term)
 {
-
 	if (!isatty(0))
 		exit_error("Terminal doesn't refer to any terminal");
 	tcgetattr(0, &g_var.e_term);
@@ -136,10 +95,6 @@ void	move_cursor(char *line)
 	else
 		tputs(cursor_left, 1, &ft_putchar);
 	tputs(delete_character, 1, &ft_putchar);
-	// tputs(restore_cursor, 1, &ft_putchar);
-	// if (tgetnum("co") - ft_strlen("beauti"))
-	// tputs(clr_eos, 1, &ft_putchar);
-	// write(1, line, ft_strlen(line));
 }
 
 void	press_backspace(char *str, t_hist *hist)
@@ -188,7 +143,7 @@ char	*ret_str(char *str, t_hist *hist)
 	return (res);
 }
 
-int		press_key(char *buf, char *str, t_hist *hist)
+int	press_key(char *buf, char *str, t_hist *hist)
 {
 	if (!ft_strncmp(buf, "\e[A", ft_strlen("\e[A")))
 		print_prev(hist);
@@ -220,7 +175,8 @@ char	*read_line(t_hist *hist)
 		if (!press_key(buf, g_var.str, hist))
 		{
 			write(1, buf, l);
-			if (buf[l - 1] != '\n' && !(buf[l - 1] == '\4' && ft_strlen(g_var.str)))
+			if (buf[l - 1] != '\n' && !(buf[l - 1] == '\4'
+					&& ft_strlen(g_var.str)))
 			{
 				g_var.str = ft_strcat(g_var.str, buf);
 				hist->mod = 1;

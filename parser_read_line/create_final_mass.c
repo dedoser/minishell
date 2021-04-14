@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 23:02:52 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 18:51:49 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:23:39 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*delete_quotes(char *str)
 	int		len;
 
 	len = ft_strlen(str) - 2;
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	alloc_check(res);
 	i = 1;
 	while (str[i + 1])
 	{
@@ -63,8 +63,8 @@ char	**push_bask(char **mass, char *str)
 	if (mass)
 		while (mass[i])
 			i++;
-	if (!(res = (char **)malloc(sizeof(char *) * (i + 2))))
-		exit_error("Malloc error");
+	res = (char **)malloc(sizeof(char *) * (i + 2));
+	alloc_check(res);
 	i = -1;
 	if (mass)
 	{

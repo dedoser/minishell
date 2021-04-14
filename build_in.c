@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:32:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/08 21:45:16 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:34:03 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-int		echo_com(t_com *com)
+int	echo_com(t_com *com)
 {
 	int		arg;
 	int		i;
@@ -58,7 +58,7 @@ void	change_oldpwd(char *str, t_envp *envp)
 	prev->value = ft_strdup(str);
 }
 
-int		cd_com(t_com *com, t_envp *envp)
+int	cd_com(t_com *com, t_envp *envp)
 {
 	char	*oldpwd;
 
@@ -87,7 +87,7 @@ int		cd_com(t_com *com, t_envp *envp)
 	return (0);
 }
 
-int		pwd_com(t_com *com)
+int	pwd_com(t_com *com)
 {
 	char	*str;
 
@@ -98,7 +98,7 @@ int		pwd_com(t_com *com)
 	return (0);
 }
 
-int		env_com(t_com *com, t_envp *env)
+int	env_com(t_com *com, t_envp *env)
 {
 	while (env)
 	{
@@ -114,23 +114,23 @@ int		env_com(t_com *com, t_envp *env)
 	return (0);
 }
 
-int		build_in(t_com *com, t_envp *envp)
+int	build_in(t_com *com, t_envp *envp)
 {
 	int	res;
 
 	res = 0;
-	if (!ft_strcmp(com->args[0], "cd") ||
-		!ft_strcmp(com->args[0], "/usr/bin/cd"))
+	if (!ft_strcmp(com->args[0], "cd")
+		|| !ft_strcmp(com->args[0], "/usr/bin/cd"))
 		res = cd_com(com, envp);
-	else if (!ft_strcmp(com->args[0], "env") ||
-			!ft_strcmp(com->args[0], "/usr/bin/env"))
+	else if (!ft_strcmp(com->args[0], "env")
+		|| !ft_strcmp(com->args[0], "/usr/bin/env"))
 		res = env_com(com, envp);
 	else if (!ft_strcmp(com->args[0], "export"))
 		res = export_com(com, envp);
 	else if (!ft_strcmp(com->args[0], "unset"))
 		res = unset_com(com, &envp);
-	else if (!ft_strcmp(com->args[0], "echo") ||
-			!ft_strcmp(com->args[0], "/usr/bin/echo"))
+	else if (!ft_strcmp(com->args[0], "echo")
+		|| !ft_strcmp(com->args[0], "/usr/bin/echo"))
 		res = echo_com(com);
 	else if (!ft_strcmp(com->args[0], "exit"))
 		exit_com();

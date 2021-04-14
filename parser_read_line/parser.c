@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/14 20:08:29 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:30:16 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		is_special_char(char c)
+int	is_special_char(char c)
 {
 	if (c != '\'' && c != '\"' && c != ' ')
 		return (1);

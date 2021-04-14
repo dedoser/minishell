@@ -6,22 +6,25 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 22:18:49 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 20:49:00 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:42:59 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-//мб надо проверять closedir на ошибку
-int		is_com_in_path(t_com *com, char *path)
+int	is_com_in_path(t_com *com, char *path)
 {
 	struct dirent	*file;
 	DIR				*dir;
 
-	if (!(dir = opendir(path)))
+	dir = opendir(path);
+	if (!dir)
 		return (0);
-	while ((file = readdir(dir)) != NULL)
+	while (1)
 	{
+		file = readdir(dir);
+		if (!file)
+			break ;
 		if (!ft_strcmp(com->args[0], file->d_name))
 		{
 			closedir(dir);
@@ -42,12 +45,26 @@ void	free_split(char **mass)
 	free(mass);
 }
 
+int	find_in_path(t_com *com, char **var, int *i)
+{
+	int	is_find;
+
+	*i = -1;
+	while (var[++(*i)])
+	{
+		is_find = is_com_in_path(com, var[*i]);
+		if (is_find)
+			break ;
+	}
+	return (is_find);
+}
+
 void	find_com(t_com *com, t_envp *env)
 {
 	char	**var;
-	int		i;
 	int		is_find;
 	char	*arg;
+	int		i;
 
 	while (env)
 	{
@@ -58,10 +75,7 @@ void	find_com(t_com *com, t_envp *env)
 	if (env == NULL)
 		return ;
 	var = ft_split(env->value, ':');
-	i = -1;
-	while (var[++i])
-		if ((is_find = is_com_in_path(com, var[i])))
-			break ;
+	is_find = find_in_path(com, var, &i);
 	arg = com->args[0];
 	if (is_find)
 	{

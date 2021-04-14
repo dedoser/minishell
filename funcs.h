@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:18 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/14 17:27:29 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:32:15 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*spec_found(char **str, char *prev);
 void	main_parcing(t_com *com, t_envp *envp);
 int		end_spec(char cur, char prev);
 char	*redirect_found(char **str);
-char	*pipe_found();
+char	*pipe_found(void);
 void	paste_envp(t_arg *args, t_envp *envp);
 void	delete_protecting(t_arg *arg);
 char	**create_final_mass(t_arg *arg);
@@ -58,4 +58,5 @@ void	delete_com(t_com **com);
 int		ft_putchar(int c);
 void	delete_mass(char **mass);
 void	delete_com(t_com **com);
+void	alloc_check(void *ptr);
 #endif

@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:13:56 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 19:09:41 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:21:52 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		check_files(t_com *com)
+int	check_files(t_com *com)
 {
 	t_arg	*list;
 
@@ -21,8 +21,8 @@ int		check_files(t_com *com)
 		list = com->list;
 		while (list)
 		{
-			if (list->line[0] == '>' ||
-				list->line[0] == '<')
+			if (list->line[0] == '>'
+				|| list->line[0] == '<')
 				if (list->next == NULL)
 					return (0);
 			list = list->next;
@@ -32,7 +32,7 @@ int		check_files(t_com *com)
 	return (1);
 }
 
-int		check_pipes(t_arg *list)
+int	check_pipes(t_arg *list)
 {
 	if (list->line[0] == '|')
 		return (0);

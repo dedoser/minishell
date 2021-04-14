@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:42:53 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/02 22:31:54 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:36:39 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-int		count_envp(t_envp *envp)
+int	count_envp(t_envp *envp)
 {
 	int		i;
 
@@ -30,8 +30,8 @@ char	**create_key_mass(t_envp *envp)
 	char	**res;
 	int		i;
 
-	if (!(res = (char **)malloc(sizeof(char *) * (count_envp(envp) + 1))))
-		exit_error("Malloc error");
+	res = (char **)malloc(sizeof(char *) * (count_envp(envp) + 1));
+	alloc_check(res);
 	i = 0;
 	while (envp)
 	{
@@ -91,7 +91,7 @@ void	export_out(t_envp *envp)
 	{
 		if (ft_strcmp(key_mass[i], "?"))
 			printf("declare -x %s=\"%s\"\n",
-					key_mass[i], get_envp(key_mass[i], envp));
+				key_mass[i], get_envp(key_mass[i], envp));
 		++i;
 	}
 	free(key_mass);

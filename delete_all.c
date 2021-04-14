@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:33:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/14 20:07:47 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:35:18 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,4 @@ void	delete_com(t_com **com)
 		++i;
 	}
 	free(mass);
-	// delete_envp();
 }

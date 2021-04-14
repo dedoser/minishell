@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 22:09:46 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 20:48:29 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:25:23 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		len_without_protect(char *str, int isquote)
+int	len_without_protect(char *str, int isquote)
 {
 	int		i;
 	int		len;
@@ -23,8 +23,8 @@ int		len_without_protect(char *str, int isquote)
 	{
 		if (str[i] == '\\')
 		{
-			if (!((isquote && (str[i + 1] == '\\' || str[i + 1] == '\"' ||
-				str[i + 1] == '$')) || !isquote))
+			if (!((isquote && (str[i + 1] == '\\' || str[i + 1] == '\"'
+							|| str[i + 1] == '$')) || !isquote))
 				len++;
 			i++;
 		}
@@ -41,16 +41,16 @@ char	*protect_dquote(char *str)
 	int		len;
 
 	len = len_without_protect(str, 1);
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	alloc_check(res);
 	i = 0;
 	len = 0;
 	while (str[i])
 	{
 		if (str[i] == '\\')
 		{
-			if (!(str[i + 1] == '\\' || str[i + 1] == '\"' ||
-				str[i + 1] == '$'))
+			if (!(str[i + 1] == '\\' || str[i + 1] == '\"'
+					|| str[i + 1] == '$'))
 			{
 				res[len++] = str[i];
 			}
@@ -70,8 +70,8 @@ char	*protect_simple(char *str)
 	int		len;
 
 	len = len_without_protect(str, 0);
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	alloc_check(res);
 	i = 0;
 	len = 0;
 	while (str[i])

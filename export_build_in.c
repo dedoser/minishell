@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:42:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 15:35:19 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:36:08 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "funcs.h"
 
-int		count_args(t_com *com)
+int	count_args(t_com *com)
 {
 	int		i;
 
@@ -22,7 +22,7 @@ int		count_args(t_com *com)
 	return (i);
 }
 
-int		check_key(char *key, t_envp *envp)
+int	check_key(char *key, t_envp *envp)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ int		check_key(char *key, t_envp *envp)
 	return (1);
 }
 
-int		add_exist(char **key_val, t_envp *envp, int res)
+int	add_exist(char **key_val, t_envp *envp, int res)
 {
 	if (!res)
 	{
@@ -54,7 +54,7 @@ int		add_exist(char **key_val, t_envp *envp, int res)
 	return (0);
 }
 
-int		add_to_envp(char *str, t_envp *envp)
+int	add_to_envp(char *str, t_envp *envp)
 {
 	char	**key_val;
 	int		res;
@@ -67,8 +67,8 @@ int		add_to_envp(char *str, t_envp *envp)
 		envp = envp->next;
 	if (res > 0)
 	{
-		if (!(envp->next = (t_envp *)malloc(sizeof(t_envp))))
-			exit_error("Malloc error");
+		envp->next = (t_envp *)malloc(sizeof(t_envp));
+		alloc_check(envp->next);
 		envp = envp->next;
 		envp->key = key_val[0];
 		envp->value = key_val[1];
@@ -80,7 +80,7 @@ int		add_to_envp(char *str, t_envp *envp)
 	return (status);
 }
 
-int		export_add(t_com *com, t_envp *envp)
+int	export_add(t_com *com, t_envp *envp)
 {
 	int		i;
 	int		res;
@@ -95,7 +95,7 @@ int		export_add(t_com *com, t_envp *envp)
 	return (res);
 }
 
-int		export_com(t_com *com, t_envp *env)
+int	export_com(t_com *com, t_envp *env)
 {
 	int	res;
 

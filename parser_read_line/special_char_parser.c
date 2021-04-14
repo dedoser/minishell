@@ -6,13 +6,13 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 22:24:17 by fignigno          #+#    #+#             */
-/*   Updated: 2021/03/27 17:08:03 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:32:42 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../funcs.h"
 
-int		redirect_line(char *str)
+int	redirect_line(char *str)
 {
 	int		i;
 
@@ -29,8 +29,8 @@ char	*redirect_found(char **str)
 	int		i;
 
 	len = redirect_line(*str);
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	alloc_check(res);
 	i = 0;
 	while (i < len)
 	{
@@ -42,12 +42,12 @@ char	*redirect_found(char **str)
 	return (res);
 }
 
-char	*pipe_found()
+char	*pipe_found(void)
 {
 	char	*res;
 
-	if (!(res = (char *)malloc(sizeof(char) * 2)))
-		exit_error("Malloc error");
+	res = (char *)malloc(sizeof(char) * 2);
+	alloc_check(res);
 	res[0] = '|';
 	res[1] = '\0';
 	return (res);

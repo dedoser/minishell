@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:56:05 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 20:30:54 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:29:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	add_str(t_arg **lst, char *str, int is_space)
 	t_arg	*new_elem;
 
 	tmp = *lst;
-	if (!(new_elem = (t_arg *)malloc(sizeof(t_arg))))
-		exit_error("Malloc error");
+	new_elem = (t_arg *)malloc(sizeof(t_arg));
+	alloc_check(new_elem);
 	new_elem->line = str;
 	new_elem->has_quote = (str[0] == '\'' || str[0] == '\"');
 	new_elem->is_space = is_space;
@@ -51,7 +51,7 @@ void	add_str(t_arg **lst, char *str, int is_space)
 	tmp->next = new_elem;
 }
 
-int		is_quote_or_space(char c)
+int	is_quote_or_space(char c)
 {
 	return (c == ' ' || c == '\'' || c == '\"');
 }
@@ -60,4 +60,10 @@ void	exit_error(const char *str)
 {
 	printf("%s\n", str);
 	exit(0);
+}
+
+void	alloc_check(void *ptr)
+{
+	if (!ptr)
+		exit_error("Malloc error");
 }
