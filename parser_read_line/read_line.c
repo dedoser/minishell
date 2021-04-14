@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 20:44:55 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/10 02:25:53 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:20:02 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,24 +166,24 @@ void	press_backspace(char *str, t_hist *hist)
 	if (!cur)
 		return ;
 	move_cursor(line);
-	// tputs(cursor_left, 1, &ft_putchar);
-	// tputs(delete_character, 1, &ft_putchar);
 }
 
 char	*ret_str(char *str, t_hist *hist)
 {
 	int		i;
 	char	*res;
+	t_str	*list;
 
 	if (hist->cur == hist->last + 1)
 		return (str);
 	i = 0;
+	list = hist->list;
 	while (++i < hist->cur)
-		hist->list = hist->list->next;
+		list = list->next;
 	if (hist->mod)
-		res = ft_strcat(ft_strdup(hist->list->str), str);
+		res = ft_strcat(ft_strdup(list->str), str);
 	else
-		res = ft_strdup(hist->list->str);
+		res = ft_strdup(list->str);
 	free(str);
 	return (res);
 }
@@ -220,7 +220,7 @@ char	*read_line(t_hist *hist)
 		if (!press_key(buf, g_var.str, hist))
 		{
 			write(1, buf, l);
-			if (buf[l - 1] != '\n' && (buf[l - 1] != '\4' || !ft_strlen(g_var.str)))
+			if (buf[l - 1] != '\n' && !(buf[l - 1] == '\4' && ft_strlen(g_var.str)))
 			{
 				g_var.str = ft_strcat(g_var.str, buf);
 				hist->mod = 1;

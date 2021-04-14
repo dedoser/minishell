@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:33:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 20:47:54 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:07:47 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	delete_com(t_com **com)
 	while (mass[i])
 	{
 		free(mass[i]->line);
-		delete_list(mass[i]->list);
 		while (com[i])
 		{
+			delete_list(mass[i]->list);
 			delete_mass(com[i]->args);
 			delete_list(com[i]->in_files);
 			delete_list(com[i]->out_files);

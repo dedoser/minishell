@@ -1,3 +1,5 @@
+Makefile
+README.md
 a
 a.out
 build_in.c
@@ -24,12 +26,10 @@ libft
 main.c
 main.o
 main_struct.h
-Makefile
 minishell
 minishell.dSYM
 parser_read_line
 qwe.c
-README.md
 run_com.c
 run_com.o
 unset_com.c

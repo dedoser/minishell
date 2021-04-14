@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:33:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 20:25:04 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:13:37 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	fork_start(t_com *com, t_envp *envp)
 		write(2, com->args[0], ft_strlen(com->args[0]));
 		write(2, ": command not found\n", 20);
 		delete_mass(envp_mass);
-		// delete_com(g_var.com);
+		delete_com(g_var.com);
 		exit(127);
 	}
 	else

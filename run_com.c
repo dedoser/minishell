@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 19:58:46 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/03 21:39:38 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:05:22 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 int		open_input(t_com *com)
 {
-	int	err;
+	int		err;
+	t_arg	*arg;
 
 	err = 1;
 	while (com)
 	{
-		while (com->in_files)
+		arg = com->in_files;
+		while (arg)
 		{
-			com->in_files = com->in_files->next;
-			if ((com->in_fd = open(com->in_files->line, O_RDONLY,
+			arg = arg->next;
+			if ((com->in_fd = open(arg->line, O_RDONLY,
 				0666)) < 0)
 			{
 				err = 0;
-				printf("%s: No such file or directory\n", com->in_files->line);
+				printf("%s: No such file or directory\n", arg->line);
 			}
-			com->in_files = com->in_files->next;
+			arg = arg->next;
 		}
 		com = com->next;
 	}
@@ -40,22 +42,24 @@ int		open_output(t_com *com)
 	int		type;
 	int		flag;
 	int		err;
+	t_arg	*arg;
 
 	err = 1;
 	while (com)
 	{
-		while (com->out_files)
+		arg = com->out_files;
+		while (arg)
 		{
-			type = ft_strcmp(com->out_files->line, ">") == 0;
-			com->out_files = com->out_files->next;
+			type = ft_strcmp(arg->line, ">") == 0;
+			arg = arg->next;
 			flag = O_CREAT | O_APPEND * !type | O_TRUNC * type | O_WRONLY;
-			if ((com->out_fd = open(com->out_files->line, flag,
+			if ((com->out_fd = open(arg->line, flag,
 				0666)) < 0)
 			{
 				err = 0;
-				printf("%s: No such file or directory\n", com->out_files->line);
+				printf("%s: No such file or directory\n", arg->line);
 			}
-			com->out_files = com->out_files->next;
+			arg = arg->next;
 		}
 		com = com->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 19:10:50 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/11 21:25:10 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/14 20:08:29 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,7 @@ void	main_parcing(t_com *com, t_envp *envp)
 	com->list = res;
 	com->arg_list = res;
 	if (!create_com(com))
-	{
-		com->list = NULL;
-		com->args = NULL;
-		com->next = NULL;
 		return ;
-	}
 	if (!com->list)
 		return ;
 	while (com)
