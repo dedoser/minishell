@@ -2,6 +2,8 @@
 	"files.associations": {
 		"libft.h": "c",
 		"funcs.h": "c",
-		"main_struct.h": "c"
+		"main_struct.h": "c",
+		"parser.h": "c",
+		"build_in.h": "c"
 	}
 }

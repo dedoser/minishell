@@ -6,31 +6,38 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/28 22:44:15 by ngonzo            #+#    #+#              #
-#    Updated: 2021/04/14 16:59:05 by fignigno         ###   ########.fr        #
+#    Updated: 2021/04/15 19:03:27 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -g -Wall -Werror -Wextra
-SRCS =	parser_read_line/read_line.c\
-		main.c ft_start.c parser_read_line/ft_utils.c parser_read_line/hist.c parser_read_line/parser.c \
-		parser_read_line/found_args_div.c parser_read_line/divide_coms.c parser_read_line/special_char_parser.c \
-		parser_read_line/paste_envp.c parser_read_line/delete_protecting.c parser_read_line/create_final_mass.c \
-		parser_read_line/check_args.c create_com.c run_com.c launch_com.c find_com.c build_in.c exit_com.c \
-		export_build_in.c export_out.c unset_com.c delete_all.c
+SRCS =	read_line/read_line.c read_line/press_key.c\
+		\
+		parser/ft_utils.c parser/hist.c parser/parser.c \
+		parser/found_args_div.c parser/divide_coms.c parser/special_char_parser.c \
+		parser/paste_envp.c parser/delete_protecting.c parser/create_final_mass.c \
+		parser/check_args.c parser/create_com.c parser/find_com.c \
+		\
+		build_in/build_in.c build_in/exit_com.c build_in/export_build_in.c \
+		build_in/export_out.c build_in/unset_com.c build_in/export_utils.c build_in/echo_com.c\
+		\
+		launch/delete_all.c launch/main.c launch/ft_start.c launch/run_com.c launch/launch_com.c \
+		launch/fork_start.c launch/history_create.c
 OBJS = $(SRCS:c=o)
 LIBFT = ./libft/libft.a
+INCLUDES = includes
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) 
-	clang -ltermcap $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	gcc -ltermcap $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C ./libft
 
 $(OBJS): %.o : %.c
-	clang $(FLAGS) -c $< -o $@
+	gcc $(FLAGS) -I $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS) $(TERM_OBJS)

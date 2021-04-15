@@ -6,12 +6,12 @@
 #    By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/01 01:35:10 by ehillman          #+#    #+#              #
-#    Updated: 2021/04/09 23:34:59 by fignigno         ###   ########.fr        #
+#    Updated: 2021/04/15 18:57:26 by fignigno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CC = clang
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c
 SRC =  	ft_isalnum.c\
 		ft_itoa.c\
