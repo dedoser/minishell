@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:13:40 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:21:42 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/15 19:40:45 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	press_backspace(char *str, t_hist *hist)
 		return ;
 	move_cursor(line);
 }
-
 
 int	press_key(char *buf, char *str, t_hist *hist)
 {

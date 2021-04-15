@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:42:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:39:21 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/15 21:01:24 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ static int	add_exist(char **key_val, t_envp *envp, int res)
 {
 	if (!res)
 	{
-		write(2, "not a valid identifier\n", 23);
+		write(2, "beautiful shell: `", 18);
+		write(2, key_val[0], ft_strlen(key_val[0]));
+		write(2, "\': not a valid identifier\n", 26);
 		errno = 2;
+		free(key_val[0]);
+		if (key_val[1])
+			free(key_val[1]);
 		return (1);
 	}
 	free(envp->value);
