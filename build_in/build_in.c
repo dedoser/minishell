@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 19:32:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 19:10:03 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:09:59 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	change_oldpwd(char *str, t_envp *envp)
 	prev = prev->next;
 	prev->key = ft_strdup("OLDPWD");
 	prev->value = ft_strdup(str);
+	prev->next = NULL;
 }
 
 static int	cd_com(t_com *com, t_envp *envp)
@@ -107,7 +108,7 @@ int	build_in(t_com *com, t_envp *envp)
 	else if (!ft_strcmp(com->args[0], "unset"))
 		res = unset_com(com, &envp);
 	else if (!ft_strcmp(com->args[0], "echo")
-		|| !ft_strcmp(com->args[0], "/usr/bin/echo"))
+		|| !ft_strcmp(com->args[0], "bin/echo"))
 		res = echo_com(com);
 	else if (!ft_strcmp(com->args[0], "exit"))
 		exit_com();

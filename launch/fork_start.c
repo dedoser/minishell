@@ -6,46 +6,17 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:47:37 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:49:58 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 22:22:53 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/launch.h"
-
-static void	redirect_fd(t_com *com)
-{
-	if (com->in_fd != 0)
-	{
-		close(g_var.prev_fd);
-		dup2(com->in_fd, 0);
-	}
-	if (com->out_fd != 1)
-	{
-		close(g_var.next_fd);
-		dup2(com->out_fd, 1);
-	}
-}
 
 static void	signal_child(void)
 {
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
-}
-
-static void	set_fd(t_com *com)
-{
-	if (g_var.cur_child == 1)
-		g_var.prev_fd = 0;
-	if (g_var.cur_child == g_var.child_count)
-		g_var.next_fd = 1;
-	dup2(g_var.prev_fd, 0);
-	dup2(g_var.next_fd, 1);
-	if (g_var.prev_fd != 0)
-		close(g_var.prev_fd);
-	if (g_var.next_fd != 1)
-		close(g_var.next_fd);
-	redirect_fd(com);
 }
 
 static void	child_fork(t_com *com, t_envp *envp)

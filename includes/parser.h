@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:21:58 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 19:13:18 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 22:24:37 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ void	paste_envp(t_arg *args, t_envp *envp);
 char	*redirect_found(char **str);
 char	*pipe_found(void);
 void	main_parcing(t_com *com, t_envp *envp);
+void	make_redirect(t_com *com);
+void	pass_redirect(t_com *com);
 
 #endif

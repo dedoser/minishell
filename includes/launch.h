@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 18:32:43 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 19:15:15 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 22:23:24 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ void	init_hist(t_hist *hist);
 void	sigint_react(int sig);
 void	run_com(t_com **com, t_envp *envp);
 void	copy_envp(t_hist *hist, char **envp);
+int		check_line(char *str);
+void	set_fd(t_com *com);
+void	redirect_fd(t_com *com);
 
 #endif

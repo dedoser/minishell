@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 19:58:46 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:52:19 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 22:17:14 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	run_com(t_com **com, t_envp *envp)
 	i = -1;
 	while (com[++i])
 	{
-		if (!(com[i]->list) || !open_input(com[i]) || !open_output(com[i]))
+		if ((!com[i]->list && !com[i]->in_files && !com[i]->out_files)
+			|| !open_input(com[i]) || !open_output(com[i]))
 			continue ;
 		if (com[i]->args)
 			launch_com(com[i], envp);

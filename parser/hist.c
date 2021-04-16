@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 20:52:09 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 21:03:56 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:14:13 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,27 @@ char	**ft_split_envp(char *str, char c)
 {
 	char	**res;
 	int		i;
+	int		ind;
 
 	res = (char **)malloc(sizeof(char *) * 3);
 	alloc_check(res);
 	i = -1;
-	if (ft_strcmp(str, "="))
-		while (str[++i])
-			if (str[i] == c)
-				break ;
-	str[i] = '\0';
+	ind = 0;
+	while (str[++i])
+	{
+		if (str[i] == c)
+		{
+			ind = 1;
+			break ;
+		}
+	}
+	if (str[0] != '=')
+		str[i] = '\0';
 	res[0] = ft_strdup(str);
-	res[1] = ft_strdup(&str[i + 1]);
+	if (ind)
+		res[1] = ft_strdup(&str[i + 1]);
+	else
+		res[1] = NULL;
 	res[2] = NULL;
 	return (res);
 }

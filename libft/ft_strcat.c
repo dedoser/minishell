@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 20:01:22 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/09 23:34:34 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:22:55 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strcat(char *src, char *dst)
 		res[i] = src[i];
 		++i;
 	}
-	while (dst[++j])
+	while (dst && dst[++j])
 		res[i + j] = dst[j];
 	res[i + j] = '\0';
 	if (src)
@@ -54,7 +54,7 @@ char	*ft_strfcat(char *src, char *dst)
 		res[i] = src[i];
 		++i;
 	}
-	while (dst[++j])
+	while (dst && dst[++j])
 		res[i + j] = dst[j];
 	res[i + j] = '\0';
 	return (res);

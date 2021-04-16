@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 14:42:53 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:40:17 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:52:59 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,13 @@ void	export_out(t_envp *envp)
 	while (key_mass[i])
 	{
 		if (ft_strcmp(key_mass[i], "?"))
-			printf("declare -x %s=\"%s\"\n",
-				key_mass[i], get_envp(key_mass[i], envp));
+		{
+			if (get_envp(key_mass[i], envp) != NULL)
+				printf("declare -x %s=\"%s\"\n", key_mass[i],
+					get_envp(key_mass[i], envp));
+			else
+				printf("declare -x %s\n", key_mass[i]);
+		}
 		++i;
 	}
 	free(key_mass);

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 21:42:25 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 21:01:24 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:49:16 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	add_exist(char **key_val, t_envp *envp, int res)
 		return (1);
 	}
 	free(envp->value);
+	free(key_val[0]);
 	envp->value = key_val[1];
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fignigno <fignigno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 19:42:38 by fignigno          #+#    #+#             */
-/*   Updated: 2021/04/15 18:27:01 by fignigno         ###   ########.fr       */
+/*   Updated: 2021/04/16 22:10:46 by fignigno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_com(t_com **com, int count)
 		com[i]->out_fd = 1;
 		com[i]->in_files = NULL;
 		com[i]->out_files = NULL;
+		com[i]->args = NULL;
 		++i;
 	}
 	com[i] = NULL;
